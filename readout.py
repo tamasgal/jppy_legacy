@@ -13,16 +13,23 @@ class JDAQEventReader(object):
     def get_next_frame_index(self):
         return lib.JDAQEventReader_get_next_frame_index(self.obj)
 
+    @property
     def has_next(self):
         return lib.JDAQEventReader_has_next(self.obj)
 
-    def event_generator(self):
-        while self.has_next():
-            yield self.get_next_frame_index()
+    def __iter__(self):
+        return self
+
+    def next(self):
+        """Python 2/3 compatibility for iterators"""
+        return self.__next__()
+
+    def __next__(self):
+        if self.has_next:
+            return self.get_next_frame_index()
+        else:
+            raise StopIteration
 
 
-reader = JDAQEventReader(sys.argv[1])
-
-event_generator = reader.event_generator()
-for event in event_generator:
+for event in JDAQEventReader(sys.argv[1]):
     print(event)
