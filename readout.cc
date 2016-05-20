@@ -13,21 +13,24 @@ struct Hit {
 class JDAQEventReader{
     public:
         JDAQEventReader() {
-            event_id = 23;
+            file_scanner.open("test.root");
+            event_id = 0;
         }
-        int get_next_tot() { return event_id++; };
-        int bar() {
-            std::cout << "I'm JDAQEventReader." << std::endl;
-            return 3;
-        }
+        int get_next_frame_index() {
+            event_id++;
+            KM3NETDAQ::JDAQEvent* event = file_scanner.next();
+            return event->getFrameIndex();
+        };
     private:
         int event_id;
+        JSUPPORT::JFileScanner<KM3NETDAQ::JDAQEvent> file_scanner;
 };
 
 extern "C" {
     JDAQEventReader* JDAQEventReader_new(){ return new JDAQEventReader(); }
-    int JDAQEventReader_bar(JDAQEventReader* r){ return r->bar(); }
-    int JDAQEventReader_get_next_tot(JDAQEventReader* r){ return r->get_next_tot(); }
+    int JDAQEventReader_get_next_frame_index(JDAQEventReader* r){
+        return r->get_next_frame_index();
+    }
 }
 
 
