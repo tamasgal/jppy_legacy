@@ -44,10 +44,14 @@ class JDAQEventReader{
 };
 
 extern "C" {
-    JDAQEventReader* JDAQEventReader_new(char* filename){ return new JDAQEventReader(filename); }
+    JDAQEventReader* JDAQEventReader_new(char* filename){
+        return new JDAQEventReader(filename);
+    }
+
     int JDAQEventReader_get_next_frame_index(JDAQEventReader* r){
         return r->get_next_frame_index();
     }
+
     bool JDAQEventReader_has_next(JDAQEventReader* r){
         return r->has_next();
     }
