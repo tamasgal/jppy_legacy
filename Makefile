@@ -11,8 +11,11 @@ LDFLAGS   += -L$(ANTRS_LIB)
 SRCS := $(wildcard *.cc)
 OBJS := $(SRCS:.cc=.o)
 BINS := $(OBJS:.o=)
-#APPS := $(addprefix $(JPP_BIN), $(BINS))
 
 include $(JPP_DIR)/Makedependencies
 
-readout:	LOADLIBES+= $(ROOTLIBS) $(JDAQ_LIBS) $(JPPLIBS)
+readout: LOADLIBES+= $(ROOTLIBS) $(JDAQ_LIBS) $(JPPLIBS)
+
+#libreadout.so : $(OBJS)
+#	$(CXX) $(SOFLAGS) -o $@ $^
+#	$(CXX) $(ROOTLIBS) $(JDAQ_LIBS) $(JPPLIBS) $(LDFLAGS) -O -shared -Wl -o $@ $^
