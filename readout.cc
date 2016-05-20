@@ -7,7 +7,7 @@ struct Hit {
     int tot, time;
 };
 
-/*
+
 // Just some non-sense tests
 
 class JDAQEventReader{
@@ -19,7 +19,7 @@ extern "C" {
     JDAQEventReader* JDAQEventReader_new(){ return new JDAQEventReader(); }
     int JDAQEventReader_get_next_tot(JDAQEventReader* r){ r->get_next_tot(); }
 }
-*/
+
 
 
 int main(int argc, char **argv)
