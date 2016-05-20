@@ -10,4 +10,7 @@
 # Actual ignores
 *.d
 *.o
+*.so
 *.root
+*.pyc
+*.swp
