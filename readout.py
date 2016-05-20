@@ -18,17 +18,8 @@ class JDAQEventReader(object):
         return lib.JDAQEventReader_has_next(self.obj)
 
     def __iter__(self):
-        return self
-
-    def next(self):
-        """Python 2/3 compatibility for iterators"""
-        return self.__next__()
-
-    def __next__(self):
-        if self.has_next:
-            return self.get_next_frame_index()
-        else:
-            raise StopIteration
+        while self.has_next:
+            yield self.get_next_frame_index()
 
 
 for event in JDAQEventReader(sys.argv[1]):
