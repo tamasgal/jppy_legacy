@@ -1,5 +1,6 @@
 // #include <vector>
 #include "Python.h"
+#include "numpy/arrayobject.h"
 #include "JDAQ/JDAQEvent.hh"
 #include "JSupport/JMultipleFileScanner.hh"
 
@@ -26,24 +27,22 @@ class JDAQEventReader{
         bool has_next() {
             return file_scanner.hasNext();
         }
-        int* get_hits() {
-            static int hits[5];
-            int i = 0;
+        PyObject* get_hits() {
+            PyObject* hits = PyList_New(0);
 
             typedef KM3NETDAQ::JDAQTriggeredHit JHit_t;
+
+//            vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits=event.getHits<KM3NETDAQ::JDAQSnapshotHit>();
 
             for (KM3NETDAQ::JDAQEvent::const_iterator<JHit_t>
                     hit = event->begin<JHit_t>();
                  hit != event->end<JHit_t>();
                  ++hit)
             {
-                if(i < 5) {
-                    hits[i++] = (int)hit->getToT();
-                }
-//                struct Hit AHit;
-//                AHit.tot = (int)hit->getToT();
-//                AHit.time = (int)hit->getT();
+                int tot = (int)hit->getToT();
+                PyList_Append(hits, PyInt_FromLong(tot));
             }
+
 
             return hits;
         }
@@ -66,7 +65,7 @@ extern "C" {
         r->retrieve_next_event();
     }
 
-    int* JDAQEventReader_get_hits(JDAQEventReader* r) {
+    PyObject* JDAQEventReader_get_hits(JDAQEventReader* r) {
         return r->get_hits();
     }
 

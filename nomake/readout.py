@@ -1,12 +1,13 @@
-from ctypes import cdll, c_char_p, c_int, POINTER
+from ctypes import cdll, c_char_p, py_object
 import sys
 
 lib = cdll.LoadLibrary('./libjppp.so')
 
-lib.JDAQEventReader_new.argtypes = [c_char_p]
-lib.JDAQEventReader_get_hits.restype = POINTER(c_int)
 
 class JDAQEventReader(object):
+    lib.JDAQEventReader_new.argtypes = [c_char_p]
+    lib.JDAQEventReader_get_hits.restype = py_object
+
     def __init__(self, filename):
         print("Filename: {0}".format(filename))
         self.obj = lib.JDAQEventReader_new(filename)
@@ -30,6 +31,8 @@ class JDAQEventReader(object):
             yield (self.get_frame_index(), self.get_hits())
 
 
-for event in JDAQEventReader(sys.argv[1]):
+for idx, event in enumerate(JDAQEventReader(sys.argv[1])):
     print(event[0])
-    hits = event[1]
+    print(event[1])
+    if idx > 80:
+        break
