@@ -1,8 +1,11 @@
-// #include <vector>
 #include "Python.h"
-#include "numpy/arrayobject.h"
+#include <vector>
+// #include "numpy/arrayobject.h"
 #include "JDAQ/JDAQEvent.hh"
+//#include "JDAQ/JDAQKeyHit.hh"
 #include "JSupport/JMultipleFileScanner.hh"
+
+using namespace KM3NETDAQ;
 
 /// A dummy struct for testing
 struct Hit {
@@ -32,7 +35,7 @@ class JDAQEventReader{
 
             typedef KM3NETDAQ::JDAQTriggeredHit JHit_t;
 
-//            vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits=event.getHits<KM3NETDAQ::JDAQSnapshotHit>();
+//            std::vector<JDAQSnapshotHit> snapshotHits=event.getHits<JDAQSnapshotHit>();
 
             for (KM3NETDAQ::JDAQEvent::const_iterator<JHit_t>
                     hit = event->begin<JHit_t>();

@@ -6,7 +6,6 @@ g++ -c -fPIC jppp.cc -o jppp.o \
     $(python-config --includes) \
     -I$JPP_INC
 g++ -shared -Wl \
-    -llang \
     $(root-config --libs) \
     $(python-config --libs) \
     -L${JPP_LIB} \
