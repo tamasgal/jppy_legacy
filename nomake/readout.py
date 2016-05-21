@@ -34,5 +34,3 @@ class JDAQEventReader(object):
 for idx, event in enumerate(JDAQEventReader(sys.argv[1])):
     print(event[0])
     print(event[1])
-    if idx > 80:
-        break
