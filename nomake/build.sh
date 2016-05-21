@@ -1,6 +1,6 @@
 #!/bin/bash
-rm *.o
-rm *.so
+rm -f *.o
+rm -f *.so
 g++ -c -fPIC jppp.cc -o jppp.o \
     -I$(root-config --incdir) \
     $(python-config --includes) \
