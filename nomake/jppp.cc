@@ -35,7 +35,10 @@ class JDAQEventReader{
 
             typedef KM3NETDAQ::JDAQTriggeredHit JHit_t;
 
-//            std::vector<JDAQSnapshotHit> snapshotHits=event.getHits<JDAQSnapshotHit>();
+            std::vector<JDAQSnapshotHit> snapshotHits=event->getHits<JDAQSnapshotHit>();
+            std::cout << "Snapshot hits: " << snapshotHits.size() << std::endl;
+            std::vector<JDAQTriggeredHit> triggeredHits=event->getHits<JDAQTriggeredHit>();
+            std::cout << "Triggered hits: " << triggeredHits.size() << std::endl;
 
             for (KM3NETDAQ::JDAQEvent::const_iterator<JHit_t>
                     hit = event->begin<JHit_t>();
