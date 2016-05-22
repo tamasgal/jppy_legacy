@@ -40,6 +40,18 @@ class JDAQEventReader{
             std::vector<JDAQTriggeredHit> triggeredHits=event->getHits<JDAQTriggeredHit>();
             std::cout << "Triggered hits: " << triggeredHits.size() << std::endl;
 
+            std::cout <<"----snapshot hits----" << std::endl;
+            for(int i=0; i < snapshotHits.size(); i++) {
+                std::cout << (int)snapshotHits[i].getToT() << "-(" << (int)snapshotHits[i].getPMT() << "/" << snapshotHits[i].getModuleID() << ")-" << (int)snapshotHits[i].getT() << " ";
+            }
+            std::cout << std::endl;
+
+            std::cout <<"----triggered hits----" << std::endl;
+            for(int i=0; i < triggeredHits.size(); i++) {
+                std::cout << (int)triggeredHits[i].getToT() << "-(" << (int)triggeredHits[i].getPMT() << "/" << triggeredHits[i].getModuleID() << ")-" << (int)triggeredHits[i].getT() << " ";
+            }
+            std::cout << std::endl;
+
             for (KM3NETDAQ::JDAQEvent::const_iterator<JHit_t>
                     hit = event->begin<JHit_t>();
                  hit != event->end<JHit_t>();
