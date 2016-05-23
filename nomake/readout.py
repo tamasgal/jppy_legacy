@@ -1,4 +1,4 @@
-from ctypes import cdll, c_char_p, c_int, POINTER
+from ctypes import cdll, c_char_p, c_int, POINTER, c_longlong
 import sys
 
 lib = cdll.LoadLibrary('./libjppp.so')
@@ -37,5 +37,5 @@ for idx, event in enumerate(JDAQEventReader(sys.argv[1])):
     print("Event {0}, FrameIndex {1}:".format(idx, frame_index))
     print("--- Hits:")
     for i in range(5):
-        print(hits_array[i])
+        print(int(hits_array[i]))
 

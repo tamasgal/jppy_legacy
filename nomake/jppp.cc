@@ -1,11 +1,4 @@
-#include "Python.h"
-#include <vector>
-// #include "numpy/arrayobject.h"
-#include "JDAQ/JDAQEvent.hh"
-//#include "JDAQ/JDAQKeyHit.hh"
-#include "JSupport/JMultipleFileScanner.hh"
-
-using namespace KM3NETDAQ;
+#include "jppp.h"
 
 // Just some non-sense tests
 
