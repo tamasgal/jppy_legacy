@@ -1,5 +1,5 @@
-#include <vector>
 #include "Python.h"
+#include <vector>
 // #include "numpy/arrayobject.h"
 #include "JDAQ/JDAQEvent.hh"
 //#include "JDAQ/JDAQKeyHit.hh"
@@ -18,48 +18,24 @@ class JDAQEventReader {
   void retrieve_next_event() { event = file_scanner.next(); }
   int get_frame_index() { return event->getFrameIndex(); };
   bool has_next() { return file_scanner.hasNext(); }
-  PyObject* get_hits() {
-    PyObject* hits = PyList_New(0);
+
+  int* get_tots() {
 
     typedef KM3NETDAQ::JDAQTriggeredHit JHit_t;
-
-    std::vector<JDAQSnapshotHit> snapshotHits =
-        event->getHits<JDAQSnapshotHit>();
+    std::vector<JDAQSnapshotHit> snapshotHits = event->getHits<JDAQSnapshotHit>();
     std::cout << "Snapshot hits: " << snapshotHits.size() << std::endl;
-    std::vector<JDAQTriggeredHit> triggeredHits =
-        event->getHits<JDAQTriggeredHit>();
-    std::cout << "Triggered hits: " << triggeredHits.size() << std::endl;
 
-    std::cout << "----snapshot hits----" << std::endl;
-    for (int i = 0; i < snapshotHits.size(); i++) {
-      std::cout << (int)snapshotHits[i].getToT() << "-("
-                << (int)snapshotHits[i].getPMT() << "/"
-                << snapshotHits[i].getModuleID() << ")-"
-                << (int)snapshotHits[i].getT() << " ";
-    }
-    std::cout << std::endl;
+    int n_snapshot_hits = snapshotHits.size();
+    int tots[n_snapshot_hits];
 
-    std::cout << "----triggered hits----" << std::endl;
-    for (int i = 0; i < triggeredHits.size(); i++) {
-      std::cout << (int)triggeredHits[i].getToT() << "-("
-                << (int)triggeredHits[i].getPMT() << "/"
-                << triggeredHits[i].getModuleID() << ")-"
-                << (int)triggeredHits[i].getT() << " ";
-    }
-    std::cout << std::endl;
-
-    for (KM3NETDAQ::JDAQEvent::const_iterator<JHit_t> hit =
-             event->begin<JHit_t>();
-         hit != event->end<JHit_t>(); ++hit) {
-      int tot = (int)hit->getToT();
-      PyList_Append(hits, PyInt_FromLong(tot));
+    for (int i = 0; i < n_snapshot_hits; i++) {
+      tots[i] = (int)snapshotHits[i].getToT();
     }
 
-    return hits;
+    return tots;
   }
 
  private:
-  int event_id;
   JSUPPORT::JFileScanner<KM3NETDAQ::JDAQEvent> file_scanner;
   KM3NETDAQ::JDAQEvent* event;
 };
@@ -77,7 +53,7 @@ void JDAQEventReader_retrieve_next_event(JDAQEventReader* r) {
   r->retrieve_next_event();
 }
 
-PyObject* JDAQEventReader_get_hits(JDAQEventReader* r) { return r->get_hits(); }
+int* JDAQEventReader_get_tots(JDAQEventReader* r) { return r->get_tots(); }
 
 bool JDAQEventReader_has_next(JDAQEventReader* r) { return r->has_next(); }
 }
