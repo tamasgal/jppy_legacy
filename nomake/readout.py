@@ -1,4 +1,4 @@
-from ctypes import cdll, c_char_p, c_int
+from ctypes import cdll, c_char_p, c_int, POINTER
 import sys
 
 lib = cdll.LoadLibrary('./libjppp.so')
@@ -6,7 +6,7 @@ lib = cdll.LoadLibrary('./libjppp.so')
 
 class JDAQEventReader(object):
     lib.JDAQEventReader_new.argtypes = [c_char_p]
-    lib.JDAQEventReader_get_tots.restype = c_int
+    lib.JDAQEventReader_get_tots.restype = POINTER(c_int)
 
     def __init__(self, filename):
         print("Filename: {0}".format(filename))
@@ -32,5 +32,10 @@ class JDAQEventReader(object):
 
 
 for idx, event in enumerate(JDAQEventReader(sys.argv[1])):
-    print(event[0])
-    print(event[1])
+    frame_index, hits_array = event
+    print(42*'=')
+    print("Event {0}, FrameIndex {1}:".format(idx, frame_index))
+    print("--- Hits:")
+    for i in range(5):
+        print(hits_array[i])
+
