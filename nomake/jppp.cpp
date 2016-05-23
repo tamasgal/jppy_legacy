@@ -6,6 +6,9 @@
         "depends": [
             "jppp.h"
         ], 
+        "include_dirs": [
+            "/opt/jpp/software"
+        ], 
         "language": "c++", 
         "sources": [
             "jppp.cc"
