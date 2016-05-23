@@ -7,11 +7,6 @@
 
 using namespace KM3NETDAQ;
 
-/// A dummy struct for testing
-struct Hit {
-  int tot, time;
-};
-
 // Just some non-sense tests
 
 class JDAQEventReader {
