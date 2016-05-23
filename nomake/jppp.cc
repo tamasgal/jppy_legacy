@@ -28,9 +28,12 @@ class JDAQEventReader {
     int n_snapshot_hits = snapshotHits.size();
     int tots[n_snapshot_hits];
 
+    std::cout << "Hits (from jppp.cc): ";
     for (int i = 0; i < n_snapshot_hits; i++) {
+      std::cout << (int)snapshotHits[i].getToT() << " ";
       tots[i] = (int)snapshotHits[i].getToT();
     }
+    std::cout << std::endl;
 
     return tots;
   }
