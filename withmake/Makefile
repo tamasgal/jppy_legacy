@@ -1,21 +1,38 @@
-JPP_DIR := $(JPP_DIR)
+SRC = readout.cc
+OBJ = ${SRC:.cc=.o}
+BIN = ${SRC:.cc=}
 
-include $(JPP_DIR)/Makerules
+#SOFLAGS += -soname
+CXX = g++ -Wall -llang ${SOFLAGS}
+
+ROOTFLAGS += $(/usr/local/root/v5.34.23/bin/root-config --libs)
+DAQ += -lKM3NeTDAQROOT 
+JPPLIBS = -L${JPP_DIR}/out/Linux/lib/ 
+JPPLIBS +=-L${JPP_DIR}/externals/antares-daq/out/Linux/lib/ 
 
 CXXFLAGS  += -I$(ANTRS_INCLUDE) -I/afs/in2p3.fr/throng/km3net/src/python/2.7.11/include
 LDFLAGS   += -L$(ANTRS_LIB)
 
-#CXXFLAGS  += -pg
-#LDFLAGS   += -pg
+#g++ -shared -Wl,-soname,libreadout.so $(JPPLIBS) `/usr/local/root/v5.34.23//bin/root-config --libs` -lKM3NeTDAQROOT -llang -o libreadout.so  readout.o
 
-SRCS := $(wildcard *.cc)
-OBJS := $(SRCS:.cc=.o)
-BINS := $(OBJS:.o=)
+all: options libreadout.so
 
-include $(JPP_DIR)/Makedependencies
+.c.o:
+	@echo CXX $<
+	@${CXX} -c ${CXXFLAGS}  $<
 
-readout: LOADLIBES+= $(ROOTLIBS) $(JDAQ_LIBS) $(JPPLIBS)
+options:
+	@echo st build options:
+	@echo "CFLAGS   = ${CFLAGS}"
+	@echo "LDFLAGS  = ${LDFLAGS}"
+	@echo "CXX       = ${CXX}"
 
-#libreadout.so : $(OBJS)
-#	$(CXX) $(SOFLAGS) -o $@ $^
-#	$(CXX) $(ROOTLIBS) $(JDAQ_LIBS) $(JPPLIBS) $(LDFLAGS) -O -shared -Wl -o $@ $^
+libreadout.so: ${OBJ}
+	@echo CXX -o $@
+	@${CXX} -o $@ ${OBJ} ${LDFLAGS}
+
+clean:
+	@echo cleaning
+	rm -f readout ${OBJ}
+
+.PHONY: options all clean
