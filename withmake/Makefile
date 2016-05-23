@@ -2,7 +2,7 @@ JPP_DIR := $(JPP_DIR)
 
 include $(JPP_DIR)/Makerules
 
-CXXFLAGS  += -I$(ANTRS_INCLUDE)
+CXXFLAGS  += -I$(ANTRS_INCLUDE) -I/afs/in2p3.fr/throng/km3net/src/python/2.7.11/include
 LDFLAGS   += -L$(ANTRS_LIB)
 
 #CXXFLAGS  += -pg

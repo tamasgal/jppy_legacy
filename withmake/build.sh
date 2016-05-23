@@ -9,4 +9,5 @@ g++ -shared -Wl \
     `/usr/local/root/v5.34.23//bin/root-config --libs` \
     -lKM3NeTDAQROOT \
     -llang \
+    -lpython \
     -o libreadout.so  readout.o
