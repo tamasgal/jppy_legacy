@@ -1,10 +1,10 @@
-import os
-
 from distutils.core import setup
 from distutils.extension import Extension
-from Cython.Build import cythonize
-
+import os
 import subprocess
+
+from Cython.Build import cythonize
+import numpy
 
 ROOT_INC = subprocess.Popen(["root-config", "--incdir"],
                             stdout=subprocess.PIPE).communicate()[0].strip()
@@ -15,7 +15,7 @@ JPP_LIB = os.environ['JPP_LIB']
 
 extensions = [
     Extension("daqeventreader", ["daqeventreader.pyx"],
-              include_dirs=[JPP_INC, ROOT_INC],
+              include_dirs=[JPP_INC, ROOT_INC, numpy.get_include()],
               library_dirs = [ROOT_LIB, JPP_LIB],
               libraries = ['KM3NeTDAQROOT',
                            'pthread', 'dl', 'util', 'm', 'Core', 'Cint', 'RIO',
