@@ -10,6 +10,7 @@ namespace jppp {
     JSUPPORT::JFileScanner<KM3NETDAQ::JDAQEvent> file_scanner;
     KM3NETDAQ::JDAQEvent* event;
 
+    JDAQEventReader::JDAQEventReader() {}
     JDAQEventReader::JDAQEventReader(char* filename) {
         std::cout << "Filename in c++: " << filename << std::endl;
         file_scanner.open(filename);

@@ -10,6 +10,7 @@
 namespace jppp {
     class JDAQEventReader {
         public:
+            JDAQEventReader();
             JDAQEventReader(char* filename);
             void retrieve_next_event();
             int get_frame_index();
