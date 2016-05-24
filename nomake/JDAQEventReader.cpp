@@ -1,4 +1,4 @@
-#include "jppp.h"
+#include "JDAQEventReader.h"
 
 // Just some non-sense tests
 

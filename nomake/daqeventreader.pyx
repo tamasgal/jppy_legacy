@@ -1,6 +1,6 @@
 # distutils: language = c++
-# distutils: sources = jppp.cc
+# distutils: sources = JDAQEventReader.cpp
 
-cdef extern from "jppp.h" namespace "jppp":
-    cdef cppclass JDAQEventReadout:
+cdef extern from "JDAQEventReader.h" namespace "jppp":
+    cdef cppclass JDAQEventReader:
         pass
