@@ -1,3 +1,5 @@
+#ifndef JDAQEVENTREADER_H
+#define JDAQEVENTREADER_H
 //#include "Python.h"
 //#include <vector>
 //#include "JDAQ/JDAQEvent.hh"
@@ -18,3 +20,5 @@ namespace jppp {
   //          KM3NETDAQ::JDAQEvent* event;
     };
 }
+
+#endif /* JDAQEVENTREADER_H */
