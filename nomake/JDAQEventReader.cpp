@@ -24,7 +24,7 @@ namespace jppp {
       return snapshotHits.size();
   }
 
-  void JDAQEventReader::get_tots(int* tots) {
+  int* JDAQEventReader::get_tots() {
 //  int* JDAQEventReader::get_tots() {
 
     typedef KM3NETDAQ::JDAQTriggeredHit JHit_t;
@@ -32,7 +32,7 @@ namespace jppp {
     std::cout << "Snapshot hits: " << snapshotHits.size() << std::endl;
 
     int n_snapshot_hits = snapshotHits.size();
-//    int tots[n_snapshot_hits];
+    int tots[n_snapshot_hits];
 
     std::cout << "Hits (from jppp.cc): ";
     for (int i = 0; i < n_snapshot_hits; i++) {

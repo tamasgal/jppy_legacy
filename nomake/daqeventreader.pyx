@@ -18,8 +18,8 @@ cdef extern from "JDAQEventReader.h" namespace "jppp":
         int get_frame_index()
         bool has_next()
         int get_number_of_snapshot_hits()
-        get_tots(int* tots)
-#        int* get_tots()
+        #get_tots(int* tots)
+        int* get_tots()
 
 
 # cdef JDAQEventReader *reader = new JDAQEventReader('../test.root')
@@ -42,9 +42,8 @@ cdef class PyJDAQEventReader:
     def get_tots(self):
         n = self.get_number_of_snapshot_hits()
         cdef int *data
-        self.c_reader.get_tots(data)
+        data = self.c_reader.get_tots()
         cdef np.npy_intp shape[1]
         shape[0] = <np.npy_intp> n
-        tot_arr = np.PyArray_SimpleNewFromData(1, shape, np.NPY_INT, data)
-        return tot_arr
-        #return data
+        ndarr = np.PyArray_SimpleNewFromData(1, shape, np.NPY_INT32, <void *> data)
+        return ndarr
