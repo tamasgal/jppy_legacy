@@ -4,11 +4,11 @@
 from libcpp cimport bool
 
 import numpy as np
-cimport numpy as np
+cimport numpy as cnp
 cimport cython
 import ctypes
 
-np.import_array()
+cnp.import_array()
 
 cdef extern from "JDAQEventReader.h" namespace "jppp":
     cdef cppclass JDAQEventReader:
@@ -41,6 +41,8 @@ cdef class PyJDAQEventReader:
         return self.c_reader.get_number_of_snapshot_hits()
     def get_tots(self):
         n = self.get_number_of_snapshot_hits()
-        cdef np.ndarray[long, ndim=1, mode='c'] tot_arr = np.zeros(n, dtype=np.int)
-        #self.c_reader.get_tots(<int *> np.PyArray_DATA(tot_arr))
+        cdef cnp.ndarray[long, ndim=1, mode='c'] tot_arr = np.zeros(n, dtype=np.int)
+        cdef int *data
+        data = <int *> cnp.PyArray_DATA(tot_arr)
+        #self.c_reader.get_tots(data)
         return tot_arr
