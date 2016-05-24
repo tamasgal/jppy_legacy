@@ -1,6 +1,7 @@
 from daqeventreader import PyJDAQEventReader
+import sys
 
-reader = PyJDAQEventReader('../test.root')
+reader = PyJDAQEventReader(sys.argv[-1])
 
 for i in range(4):
     print("Event #{0}".format(i))
