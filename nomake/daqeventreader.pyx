@@ -41,6 +41,6 @@ cdef class PyJDAQEventReader:
         return self.c_reader.get_number_of_snapshot_hits()
     def get_tots(self):
         n = self.get_number_of_snapshot_hits()
-        cdef np.ndarray[np.int, ndim=1, mode='c'] tot_arr = np.zeros(n, dtype=np.int)
-        self.c_reader.get_tots(<int *> np.PyArray_DATA(tot_arr))
+        cdef np.ndarray[long, ndim=1, mode='c'] tot_arr = np.zeros(n, dtype=np.int)
+        #self.c_reader.get_tots(<int *> np.PyArray_DATA(tot_arr))
         return tot_arr
