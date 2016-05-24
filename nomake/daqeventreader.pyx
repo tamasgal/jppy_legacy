@@ -42,8 +42,15 @@ cdef class PyJDAQEventReader:
         return self.c_reader.get_frame_index()
     def get_number_of_snapshot_hits(self):
         return self.c_reader.get_number_of_snapshot_hits()
-#    def get_tots(self):
-#        n = self.get_number_of_snapshot_hits()
+    def get_tots(self, np.ndarray[int, ndim=1, mode="c"] input not None):
+        n = self.get_number_of_snapshot_hits()
+        #cdef int [:] tots = np.zeros(n, dtype='i')
+        #print(tots)
+#        tots = np.zeros(n, dtype="i")
+        # cdef int [:] tots_view = tots
+        #cdef int [:] tots_view = np.ascontiguousarray(tots, dtype='i')
+        self.c_reader.get_tots(&input[0])
+#        return tots
 #        cdef int *data = self.c_reader.get_tots()
 #        cdef np.npy_intp shape[1]
 #        shape[0] = <np.npy_intp> n
