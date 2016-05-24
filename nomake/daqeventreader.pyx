@@ -6,6 +6,7 @@ from libcpp cimport bool
 import numpy as np
 cimport numpy as np
 cimport cython
+import ctypes
 
 np.import_array()
 
@@ -44,5 +45,7 @@ cdef class PyJDAQEventReader:
 #        cdef int[::1] view = <int[:self.c_reader.get_number_of_snapshot_hits()]> self.c_reader.get_tots()
 #        return np.asarray(view)
         n = self.get_number_of_snapshot_hits()
-        cdef np.ndarray[int, ndim=1, mode='c'] tot_arr = np.zeros(n, dtype=int)
+        cdef np.ndarray[int, ndim=1, mode='c'] tot_arr = np.zeros(n, dtype=ctypes.c_int)
+#        cdef np.ndarray[np.int, ndim=1, mode='c'] tot_arr = np.zeros(n, dtype=np.int)
         self.c_reader.get_tots(<int *> np.PyArray_DATA(tot_arr))
+        return tot_arr
