@@ -19,14 +19,19 @@ namespace jppp {
   int JDAQEventReader::get_frame_index() { return event->getFrameIndex(); };
   bool JDAQEventReader::has_next() { return file_scanner.hasNext(); }
 
-  int* JDAQEventReader::get_tots() {
+  int JDAQEventReader::get_number_of_snapshot_hits() {
+      std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
+      return snapshotHits.size();
+  }
+
+  void JDAQEventReader::get_tots(int* tots) {
 
     typedef KM3NETDAQ::JDAQTriggeredHit JHit_t;
     std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
     std::cout << "Snapshot hits: " << snapshotHits.size() << std::endl;
 
     int n_snapshot_hits = snapshotHits.size();
-    int tots[n_snapshot_hits];
+//    int tots[n_snapshot_hits];
 
     std::cout << "Hits (from jppp.cc): ";
     for (int i = 0; i < n_snapshot_hits; i++) {
@@ -34,8 +39,6 @@ namespace jppp {
       tots[i] = (int)snapshotHits[i].getToT();
     }
     std::cout << std::endl;
-
-    return tots;
   }
 
 }
