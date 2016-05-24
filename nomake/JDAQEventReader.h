@@ -1,9 +1,9 @@
-#include "Python.h"
-#include <vector>
-#include "JDAQ/JDAQEvent.hh"
-#include "JSupport/JMultipleFileScanner.hh"
+//#include "Python.h"
+//#include <vector>
+//#include "JDAQ/JDAQEvent.hh"
+//#include "JSupport/JMultipleFileScanner.hh"
 
-using namespace KM3NETDAQ;
+//using namespace KM3NETDAQ;
 
 namespace jppp {
     class JDAQEventReader {
@@ -13,9 +13,8 @@ namespace jppp {
             int get_frame_index();
             bool has_next();
             int* get_tots();
-
-        private:
-            JSUPPORT::JFileScanner<KM3NETDAQ::JDAQEvent> file_scanner;
-            KM3NETDAQ::JDAQEvent* event;
+//        private:
+ //           JSUPPORT::JFileScanner<KM3NETDAQ::JDAQEvent> file_scanner;
+  //          KM3NETDAQ::JDAQEvent* event;
     };
 }
