@@ -1,5 +1,6 @@
 # distutils: language = c++
 # distutils: sources = JDAQEventReader.cpp
+# vim:set ts=4 sts=4 sw=4 et:
 
 from libcpp cimport bool
 
@@ -41,9 +42,9 @@ cdef class PyJDAQEventReader:
         return self.c_reader.get_number_of_snapshot_hits()
     def get_tots(self):
         n = self.get_number_of_snapshot_hits()
-        cdef int *data
-        data = self.c_reader.get_tots()
+        cdef int *data = self.c_reader.get_tots()
         cdef np.npy_intp shape[1]
         shape[0] = <np.npy_intp> n
-        ndarr = np.PyArray_SimpleNewFromData(1, shape, np.NPY_INT32, <void *> data)
+        cdef np.ndarray[int, ndim=1] ndarr = np.PyArray_SimpleNewFromData(1, 
+                shape, np.NPY_INT, <void *> data)
         return ndarr

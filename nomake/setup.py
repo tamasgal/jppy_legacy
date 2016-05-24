@@ -25,4 +25,4 @@ extensions = [
               #extra_link_args=[]
              ),
 ]
-setup(ext_modules = cythonize(extensions, language='c++'))
+setup(ext_modules = cythonize(extensions, language='c++', gdb_debug=True))
