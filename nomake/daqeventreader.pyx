@@ -20,7 +20,9 @@ cdef extern from "JDAQEventReader.h" namespace "jppp":
         bool has_next()
         int get_number_of_snapshot_hits()
         #get_tots(int* tots)
-        int* get_tots()
+#        int* get_tots()
+        void get_tots(int* tots)
+        void test_get_tots()
 
 
 # cdef JDAQEventReader *reader = new JDAQEventReader('../test.root')
@@ -40,11 +42,14 @@ cdef class PyJDAQEventReader:
         return self.c_reader.get_frame_index()
     def get_number_of_snapshot_hits(self):
         return self.c_reader.get_number_of_snapshot_hits()
-    def get_tots(self):
-        n = self.get_number_of_snapshot_hits()
-        cdef int *data = self.c_reader.get_tots()
-        cdef np.npy_intp shape[1]
-        shape[0] = <np.npy_intp> n
-        cdef np.ndarray[int, ndim=1] ndarr = np.PyArray_SimpleNewFromData(1, 
-                shape, np.NPY_INT, <void *> data)
-        return ndarr
+#    def get_tots(self):
+#        n = self.get_number_of_snapshot_hits()
+#        cdef int *data = self.c_reader.get_tots()
+#        cdef np.npy_intp shape[1]
+#        shape[0] = <np.npy_intp> n
+#        cdef np.ndarray[int, ndim=1] ndarr = np.PyArray_SimpleNewFromData(1,
+#                shape, np.NPY_INT, <void *> data)
+#        return ndarr
+
+    def test_get_tots(self):
+        self.c_reader.test_get_tots()
