@@ -12,7 +12,6 @@ ROOT_LIB = subprocess.Popen(["root-config", "--libdir"],
                             stdout=subprocess.PIPE).communicate()[0].strip()
 JPP_INC = os.environ['JPP_INC']
 JPP_LIB = os.environ['JPP_LIB']
-print(JPP_LIB)
 
 extensions = [
     Extension("daqeventreader", ["daqeventreader.pyx"],
