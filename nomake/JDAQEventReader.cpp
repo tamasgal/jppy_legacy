@@ -25,6 +25,7 @@ namespace jppp {
   }
 
   void JDAQEventReader::get_tots(int* tots) {
+//  int* JDAQEventReader::get_tots() {
 
     typedef KM3NETDAQ::JDAQTriggeredHit JHit_t;
     std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
@@ -38,6 +39,7 @@ namespace jppp {
       std::cout << (int)snapshotHits[i].getToT() << " ";
       tots[i] = (int)snapshotHits[i].getToT();
     }
+    std::cout << std::endl;
     std::cout << std::endl;
   }
 
