@@ -1,7 +1,7 @@
 #ifndef JDAQEVENTREADER_H
 #define JDAQEVENTREADER_H
 
-namespace jppp {
+namespace jppy {
     class JDAQEventReader {
     public:
         JDAQEventReader();

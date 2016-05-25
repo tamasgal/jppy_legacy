@@ -1,4 +1,4 @@
-jppp - Python Binding for the JPP Framework used in KM3NeT
+jppy - Python Binding for the JPP Framework used in KM3NeT
 ==========================================================
 
 Installation

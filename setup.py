@@ -2,7 +2,7 @@
 # coding=utf-8
 # Filename: setup.py
 """
-jppp setup script.
+jppy setup script.
 
 """
 from distutils.core import setup
@@ -32,7 +32,7 @@ JPP_LIB = os.environ['JPP_LIB']
 
 
 extensions = [
-    Extension("jppp", ["jppp.pyx"],
+    Extension("jppy", ["jppy.pyx"],
               include_dirs=[JPP_INC, ROOT_INC, numpy.get_include()],
               library_dirs=[ROOT_LIB, JPP_LIB],
               libraries=['KM3NeTDAQROOT',
@@ -44,9 +44,15 @@ extensions = [
               ),
 ]
 
+<<<<<<< HEAD
 setup(name='jppp',
       version='0.1.2',
       url='http://git.km3net.de/tgal/jppp.git',
+=======
+setup(name='jppy',
+      version='0.1.0',
+      url='http://git.km3net.de/tgal/jppy.git',
+>>>>>>> cythonize
       description='Python bindings for JPP',
       author='Tamas Gal',
       author_email='tgal@km3net.de',

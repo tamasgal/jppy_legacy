@@ -1,4 +1,4 @@
-from jppp import PyJDAQEventReader
+from jppy import PyJDAQEventReader
 import sys
 import numpy as np
 
