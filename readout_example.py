@@ -20,10 +20,13 @@ for i in range(4):
     dom_ids = np.zeros(n, dtype='i')
     times = np.zeros(n, dtype='i')
     tots = np.zeros(n, dtype='i')
-    reader.get_hits(channel_ids, dom_ids, times, tots)
+    triggereds = np.zeros(n, dtype='i')
+    reader.get_hits(channel_ids, dom_ids, times, tots, triggereds)
     print("  Snapshot Hits (actual python interface): \n"
           "    ToTs:        {0}\n"
           "    Times:       {1}\n"
           "    DOM IDs:     {2}\n"
-          "    Channel IDs: {3}".format(tots, times, dom_ids, channel_ids))
+          "    Channel IDs: {3}\n"
+          "    Triggereds:  {4}"
+          .format(tots, times, dom_ids, channel_ids, triggereds))
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 #include "JDAQEventReader.h"
 #include "JDAQ/JDAQEvent.hh"
 #include "JSupport/JMultipleFileScanner.hh"
@@ -32,18 +33,38 @@ namespace jppy {
     void JDAQEventReader::getHits(int* channel_ids,
                                   int* dom_ids,
                                   int* times,
-                                  int* tots)
+                                  int* tots,
+                                  int* triggereds)
     {
+        std::map <int, std::map <int, std::map <int, int> > >  triggered_map;
+
+        std::vector<KM3NETDAQ::JDAQTriggeredHit> triggeredHits
+            = event->getHits<KM3NETDAQ::JDAQTriggeredHit>();
+
+        int nTriggeredHits = triggeredHits.size();
+
+        for (int i = 0; i < nTriggeredHits; i++) {
+            int channel_id = (int)triggeredHits[i].getPMT();
+            int dom_id = (int)triggeredHits[i].getModuleID();
+            int time = (int)triggeredHits[i].getT();
+            triggered_map[channel_id][dom_id][time] = 1;
+        }
+
         std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits
             = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
 
-        int n = snapshotHits.size();
+        int nSnapshotHits = snapshotHits.size();
 
-        for (int i = 0; i < n; i++) {
-            channel_ids[i] = (int)snapshotHits[i].getPMT();
-            dom_ids[i] = (int)snapshotHits[i].getModuleID();
-            times[i] = (int)snapshotHits[i].getT();
-            tots[i] = (int)snapshotHits[i].getToT();
+        for (int i = 0; i < nSnapshotHits; i++) {
+            int channel_id = (int)snapshotHits[i].getPMT();
+            int dom_id = (int)snapshotHits[i].getModuleID();
+            int time = (int)snapshotHits[i].getT();
+            int tot = (int)snapshotHits[i].getToT();
+            channel_ids[i] = channel_id;
+            dom_ids[i] = dom_id;
+            times[i] = time;
+            tots[i] = tot;
+            triggereds[i] = triggered_map[channel_id][dom_id][time];
         }
     }
 }

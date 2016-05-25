@@ -9,7 +9,8 @@ namespace jppy {
         void retrieveNextEvent();
         int getFrameIndex();
         int getNumberOfSnapshotHits();
-        void getHits(int* channel_ids, int* dom_ids, int* times, int* tots);
+        void getHits(int* channel_ids, int* dom_ids, int* times, int* tots,
+                     int* triggereds);
         bool hasNext();
 //  private:
 //      JSUPPORT::JFileScanner<KM3NETDAQ::JDAQEvent> file_scanner;
