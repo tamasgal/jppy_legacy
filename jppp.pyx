@@ -31,6 +31,9 @@ cdef class PyJDAQEventReader:
     def retrieve_next_event(self):
         self.c_reader.retrieveNextEvent()
 
+    def has_next(self):
+        return self.c_reader.hasNext()
+
     def get_frame_index(self):
         return self.c_reader.getFrameIndex()
 
