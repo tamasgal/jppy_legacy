@@ -19,17 +19,8 @@ cdef extern from "JDAQEventReader.h" namespace "jppp":
         int get_frame_index()
         bool has_next()
         int get_number_of_snapshot_hits()
-        #get_tots(int* tots)
-#        int* get_tots()
         void get_tots(int* tots)
         void test_get_tots()
-
-
-# cdef JDAQEventReader *reader = new JDAQEventReader('../test.root')
-# try:
-#     print reader.has_next()
-# finally:
-#     del reader
 
 
 cdef class PyJDAQEventReader:
