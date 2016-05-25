@@ -44,4 +44,18 @@ extensions = [
               ),
 ]
 
-setup(ext_modules=cythonize(extensions, language='c++', gdb_debug=True))
+setup(name='jppp',
+      version='0.1.0',
+      url='http://git.km3net.de/tgal/jppp.git',
+      description='Python bindings for JPP',
+      author='Tamas Gal',
+      author_email='tgal@km3net.de',
+      install_requires=['cython', 'numpy'],
+      ext_modules=cythonize(extensions, language='c++', gdb_debug=True),
+      classifiers=[
+          'Development Status :: 3 - Alpha',
+          'Intended Audience :: Developers',
+          'Intended Audience :: Science/Research',
+          'Programming Language :: Python',
+      ],
+      )
