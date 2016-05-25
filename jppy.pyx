@@ -38,6 +38,9 @@ cdef class PyJDAQEventReader:
     def get_number_of_snapshot_hits(self):
         return self.c_reader.getNumberOfSnapshotHits()
 
+    def has_next(self):
+        return self.c_reader.hasNext()
+
     def get_hits(self,
                  np.ndarray[int, ndim=1, mode="c"] channel_ids not None,
                  np.ndarray[int, ndim=1, mode="c"] dom_ids  not None,
