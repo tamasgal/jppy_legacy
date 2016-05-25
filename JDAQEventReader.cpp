@@ -4,7 +4,7 @@
 #include "JSupport/JMultipleFileScanner.hh"
 
 
-namespace jppp {
+namespace jppy {
 
     JSUPPORT::JFileScanner<KM3NETDAQ::JDAQEvent> fileScanner;
     KM3NETDAQ::JDAQEvent* event;
