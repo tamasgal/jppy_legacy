@@ -44,15 +44,9 @@ extensions = [
               ),
 ]
 
-<<<<<<< HEAD
-setup(name='jppp',
-      version='0.1.2',
-      url='http://git.km3net.de/tgal/jppp.git',
-=======
 setup(name='jppy',
-      version='0.1.0',
+      version='0.1.2',
       url='http://git.km3net.de/tgal/jppy.git',
->>>>>>> cythonize
       description='Python bindings for JPP',
       author='Tamas Gal',
       author_email='tgal@km3net.de',
