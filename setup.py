@@ -1,11 +1,27 @@
+#!/usr/bin/env python
+# coding=utf-8
+# Filename: setup.py
+"""
+jppp setup script.
+
+"""
 from distutils.core import setup
 from distutils.extension import Extension
 import os
 import subprocess
 
-from Cython.Build import cythonize
-import numpy
+try:
+    from Cython.Build import cythonize
+    import numpy
+except:
+    raise SystemExit("Please install Cython and Numpy:\n\n"
+                     "    pip install cython numpy")
 
+try:
+    os.environ['JPP_DIR']
+except KeyError:
+    raise SystemExit("\n$JPP_DIR is not set. "
+                     "You need to activate the JPP environment!")
 
 ROOT_INC = subprocess.Popen(["root-config", "--incdir"],
                             stdout=subprocess.PIPE).communicate()[0].strip()
