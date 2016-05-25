@@ -24,9 +24,23 @@ namespace jppp {
         return snapshotHits.size();
     }
 
+    void JDAQEventReader::get_hits(int* channel_ids, int* dom_ids, int* times, int* tots) {
+        std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits
+            = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
+
+        int n_snapshot_hits = snapshotHits.size();
+
+        for (int i = 0; i < n_snapshot_hits; i++) {
+            channel_ids[i] = (int)snapshotHits[i].getPMT();
+            dom_ids[i] = (int)snapshotHits[i].getModuleID();
+            times[i] = (int)snapshotHits[i].getT();
+            tots[i] = (int)snapshotHits[i].getToT();
+        }
+    }
+
     void JDAQEventReader::get_tots(int* tots) {
 
-    typedef KM3NETDAQ::JDAQTriggeredHit JHit_t;
+        typedef KM3NETDAQ::JDAQTriggeredHit JHit_t;
         std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits
             = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
         std::cout << "Snapshot hits: " << snapshotHits.size() << std::endl;

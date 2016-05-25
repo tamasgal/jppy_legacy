@@ -1,4 +1,4 @@
-from daqeventreader import PyJDAQEventReader
+from jppp import PyJDAQEventReader
 import sys
 import numpy as np
 
@@ -15,8 +15,15 @@ for i in range(4):
     print("  Frame Index: {0}".format(reader.get_frame_index()))
     print("  Amount of Snapshot Hits: {0}".format(reader.get_number_of_snapshot_hits()))
 
-    tots = np.zeros(reader.get_number_of_snapshot_hits(), dtype='i')
-    reader.get_tots(tots)
-    print("  Snapshot Hits (actual python interface): {0}".format(tots))
-    reader.test_get_tots()
+    n = reader.get_number_of_snapshot_hits()
+    channel_ids = np.zeros(n, dtype='i')
+    dom_ids = np.zeros(n, dtype='i')
+    times = np.zeros(n, dtype='i')
+    tots = np.zeros(n, dtype='i')
+    reader.get_hits(channel_ids, dom_ids, times, tots)
+    print("  Snapshot Hits (actual python interface): \n"
+          "    ToTs:        {0}\n"
+          "    Times:       {1}\n"
+          "    DOM IDs:     {2}\n"
+          "    Channel IDs: {3}".format(tots, times, dom_ids, channel_ids))
 
