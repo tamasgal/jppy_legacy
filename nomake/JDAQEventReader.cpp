@@ -6,80 +6,44 @@
 
 namespace jppp {
 
-    JSUPPORT::JFileScanner<KM3NETDAQ::JDAQEvent> file_scanner;
+    JSUPPORT::JFileScanner<KM3NETDAQ::JDAQEvent> fileScanner;
     KM3NETDAQ::JDAQEvent* event;
 
     JDAQEventReader::JDAQEventReader() {}
+
     JDAQEventReader::JDAQEventReader(char* filename) {
         std::cout << "Filename in c++: " << filename << std::endl;
-        file_scanner.open(filename);
+        fileScanner.open(filename);
     }
-    void JDAQEventReader::retrieve_next_event() { event = file_scanner.next(); }
-    int JDAQEventReader::get_frame_index() { return event->getFrameIndex(); };
-    bool JDAQEventReader::has_next() { return file_scanner.hasNext(); }
 
-    int JDAQEventReader::get_number_of_snapshot_hits() {
+    void JDAQEventReader::retrieveNextEvent() { event = fileScanner.next(); }
+
+    int JDAQEventReader::getFrameIndex() { return event->getFrameIndex(); };
+
+    bool JDAQEventReader::hasNext() { return fileScanner.hasNext(); }
+
+    int JDAQEventReader::getNumberOfSnapshotHits()
+    {
         std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits
             = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
         return snapshotHits.size();
     }
 
-    void JDAQEventReader::get_hits(int* channel_ids, int* dom_ids, int* times, int* tots) {
+    void JDAQEventReader::getHits(int* channel_ids,
+                                  int* dom_ids,
+                                  int* times,
+                                  int* tots)
+    {
         std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits
             = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
 
-        int n_snapshot_hits = snapshotHits.size();
+        int n = snapshotHits.size();
 
-        for (int i = 0; i < n_snapshot_hits; i++) {
+        for (int i = 0; i < n; i++) {
             channel_ids[i] = (int)snapshotHits[i].getPMT();
             dom_ids[i] = (int)snapshotHits[i].getModuleID();
             times[i] = (int)snapshotHits[i].getT();
             tots[i] = (int)snapshotHits[i].getToT();
         }
     }
-
-    void JDAQEventReader::get_tots(int* tots) {
-
-        typedef KM3NETDAQ::JDAQTriggeredHit JHit_t;
-        std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits
-            = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
-        std::cout << "Snapshot hits: " << snapshotHits.size() << std::endl;
-
-        int n_snapshot_hits = snapshotHits.size();
-
-        std::cout << "Hits (directly from readout): " << std::endl;
-        for (int i = 0; i < n_snapshot_hits; i++) {
-            std::cout << (int)snapshotHits[i].getToT() << " ";
-            tots[i] = (int)snapshotHits[i].getToT();
-        }
-        std::cout << std::endl;
-        std::cout << std::endl;
-    }
-
-  void JDAQEventReader::test_get_tots() {
-      // Testing the get_tots() function internally
-
-      std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits
-          = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
-      int n = snapshotHits.size();
-      std::cout << "Trying to fetch " << n << " hits" << std::endl;
-
-      int* test_arr = (int*) malloc (n*(sizeof(int)));
-      JDAQEventReader::get_tots(test_arr);
-
-      std::cout << "Testing get_tots in c: " << std::endl;
-      for(int i = 0; i < n; i++) {
-          std::cout << test_arr[i] << " ";
-      }
-      std::cout << std::endl;
-
-      free(test_arr);
-  }
 }
-
-
-int main(int argc, char** argv) {
-    std::cout << "hello jppp" << std::endl;
-    return 0;
-}
-
