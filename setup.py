@@ -45,7 +45,7 @@ extensions = [
 ]
 
 setup(name='jppy',
-      version='1.0.0',
+      version='1.0.1',
       url='http://git.km3net.de/tgal/jppy.git',
       description='Python bindings for JPP',
       author='Tamas Gal',
