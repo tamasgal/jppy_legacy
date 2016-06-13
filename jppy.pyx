@@ -20,6 +20,8 @@ cdef extern from "JDAQEventReader.h" namespace "jppy":
         int getRunNumber()
         int getDetectorID()
         int getCounter()
+        int getTriggerMask()
+        unsigned int getOverlays()
         int getUTCSeconds()
         int getUTCNanoseconds()
         bool hasNext()
@@ -40,14 +42,20 @@ cdef class PyJDAQEventReader:
     def get_frame_index(self):
         return self.c_reader.getFrameIndex()
 
-    def get_run_number(self):
+    def get_run_id(self):
         return self.c_reader.getRunNumber()
 
-    def get_detector_id(self):
+    def get_det_id(self):
         return self.c_reader.getDetectorID()
 
     def get_counter(self):
         return self.c_reader.getCounter()
+
+    def get_trigger_mask(self):
+        return self.c_reader.getTriggerMask()
+
+    def get_overlays(self):
+        return self.c_reader.getOverlays()
 
     def get_utc_seconds(self):
         return self.c_reader.getUTCSeconds()
