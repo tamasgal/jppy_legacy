@@ -14,6 +14,7 @@
 *.root
 *.pyc
 *.swp
+*.egg-info
 
 *.cpp
 
