@@ -39,33 +39,43 @@ cdef class PyJDAQEventReader:
     def retrieve_next_event(self):
         self.c_reader.retrieveNextEvent()
 
-    def get_frame_index(self):
+    @property
+    def frame_index(self):
         return self.c_reader.getFrameIndex()
 
-    def get_run_id(self):
+    @property
+    def run_id(self):
         return self.c_reader.getRunNumber()
 
-    def get_det_id(self):
+    @property
+    def det_id(self):
         return self.c_reader.getDetectorID()
 
-    def get_counter(self):
+    @property
+    def counter(self):
         return self.c_reader.getCounter()
 
-    def get_trigger_mask(self):
+    @property
+    def trigger_mask(self):
         return self.c_reader.getTriggerMask()
 
-    def get_overlays(self):
+    @property
+    def overlays(self):
         return self.c_reader.getOverlays()
 
-    def get_utc_seconds(self):
+    @property
+    def utc_seconds(self):
         return self.c_reader.getUTCSeconds()
 
-    def get_utc_nanoseconds(self):
+    @property
+    def utc_nanoseconds(self):
         return self.c_reader.getUTCNanoseconds()
 
-    def get_number_of_snapshot_hits(self):
+    @property
+    def number_of_snapshot_hits(self):
         return self.c_reader.getNumberOfSnapshotHits()
 
+    @property
     def has_next(self):
         return self.c_reader.hasNext()
 
