@@ -8,7 +8,7 @@ jppy setup script.
 from distutils.core import setup
 from distutils.extension import Extension
 import os
-import subprocess
+import subprocess as sp
 
 try:
     from Cython.Build import cythonize
@@ -23,10 +23,10 @@ except KeyError:
     raise SystemExit("\n$JPP_DIR is not set. "
                      "You need to activate the JPP environment!")
 
-ROOT_INC = subprocess.Popen(["root-config", "--incdir"],
-                            stdout=subprocess.PIPE).communicate()[0].strip()
-ROOT_LIB = subprocess.Popen(["root-config", "--libdir"],
-                            stdout=subprocess.PIPE).communicate()[0].strip()
+ROOT_INC = sp.Popen(["root-config", "--incdir"],
+                    stdout=sp.PIPE).communicate()[0].strip().decode()
+ROOT_LIB = sp.Popen(["root-config", "--libdir"],
+                    stdout=sp.PIPE).communicate()[0].strip().decode()
 JPP_INC = os.environ['JPP_INC']
 JPP_LIB = os.environ['JPP_LIB']
 
