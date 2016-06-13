@@ -8,6 +8,11 @@ namespace jppy {
         JDAQEventReader(char* filename);
         void retrieveNextEvent();
         int getFrameIndex();
+        int getRunNumber();
+        int getDetectorID();
+        int getCounter();
+        int getUTCSeconds();
+        int getUTCNanoseconds();
         int getNumberOfSnapshotHits();
         void getHits(int* channel_ids, int* dom_ids, int* times, int* tots,
                      int* triggereds);

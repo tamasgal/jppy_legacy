@@ -19,7 +19,16 @@ namespace jppy {
 
     void JDAQEventReader::retrieveNextEvent() { event = fileScanner.next(); }
 
-    int JDAQEventReader::getFrameIndex() { return event->getFrameIndex(); };
+    int JDAQEventReader::getFrameIndex() { return event->getFrameIndex(); }
+    int JDAQEventReader::getRunNumber() { return event->getRunNumber(); }
+    int JDAQEventReader::getDetectorID() { return event->getDetectorID(); }
+    int JDAQEventReader::getCounter() { return event->getCounter(); }
+    int JDAQEventReader::getUTCSeconds() {
+        return event->getTimesliceStart().getUTCseconds();
+    }
+    int JDAQEventReader::getUTCNanoseconds() {
+        return event->getTimesliceStart().getUTC16nanosecondcycles() * 16;
+    }
 
     bool JDAQEventReader::hasNext() { return fileScanner.hasNext(); }
 

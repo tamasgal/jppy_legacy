@@ -17,6 +17,11 @@ cdef extern from "JDAQEventReader.h" namespace "jppy":
         JDAQEventReader(char* filename) except +
         void retrieveNextEvent()
         int getFrameIndex()
+        int getRunNumber()
+        int getDetectorID()
+        int getCounter()
+        int getUTCSeconds()
+        int getUTCNanoseconds()
         bool hasNext()
         int getNumberOfSnapshotHits()
         void getHits(int* channel_ids, int* dom_ids, int* times, int* tots,
@@ -34,6 +39,21 @@ cdef class PyJDAQEventReader:
 
     def get_frame_index(self):
         return self.c_reader.getFrameIndex()
+
+    def get_run_number(self):
+        return self.c_reader.getRunNumber()
+
+    def get_detector_id(self):
+        return self.c_reader.getDetectorID()
+
+    def get_counter(self):
+        return self.c_reader.getCounter()
+
+    def get_utc_seconds(self):
+        return self.c_reader.getUTCSeconds()
+
+    def get_utc_nanoseconds(self):
+        return self.c_reader.getUTCNanoseconds()
 
     def get_number_of_snapshot_hits(self):
         return self.c_reader.getNumberOfSnapshotHits()
