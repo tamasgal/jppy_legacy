@@ -10,7 +10,7 @@ namespace jppy {
         int getFrameIndex();
         int getRunNumber();
         int getDetectorID();
-        int getCounter();
+        int getTriggerCounter();
         int getTriggerMask();
         unsigned int getOverlays();
         int getUTCSeconds();

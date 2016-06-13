@@ -19,7 +19,7 @@ cdef extern from "JDAQEventReader.h" namespace "jppy":
         int getFrameIndex()
         int getRunNumber()
         int getDetectorID()
-        int getCounter()
+        int getTriggerCounter()
         int getTriggerMask()
         unsigned int getOverlays()
         int getUTCSeconds()
@@ -52,8 +52,8 @@ cdef class PyJDAQEventReader:
         return self.c_reader.getDetectorID()
 
     @property
-    def counter(self):
-        return self.c_reader.getCounter()
+    def trigger_counter(self):
+        return self.c_reader.getTriggerCounter()
 
     @property
     def trigger_mask(self):
