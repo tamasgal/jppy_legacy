@@ -23,6 +23,8 @@ namespace jppy {
     int JDAQEventReader::getRunNumber() { return event->getRunNumber(); }
     int JDAQEventReader::getDetectorID() { return event->getDetectorID(); }
     int JDAQEventReader::getCounter() { return event->getCounter(); }
+    int JDAQEventReader::getTriggerMask() { return event->getTriggerMask(); }
+    unsigned int JDAQEventReader::getOverlays() { return event->getOverlays(); }
     int JDAQEventReader::getUTCSeconds() {
         return event->getTimesliceStart().getUTCseconds();
     }
