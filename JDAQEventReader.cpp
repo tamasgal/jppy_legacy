@@ -24,6 +24,7 @@ namespace jppy {
     int JDAQEventReader::getDetectorID() { return event->getDetectorID(); }
     int JDAQEventReader::getTriggerCounter() { return event->getCounter(); }
     int JDAQEventReader::getTriggerMask() { return event->getTriggerMask(); }
+    int JDAQEventReader::getSize() { return event->getSize(); }
     unsigned int JDAQEventReader::getOverlays() { return event->getOverlays(); }
     int JDAQEventReader::getUTCSeconds() {
         return event->getTimesliceStart().getUTCseconds();

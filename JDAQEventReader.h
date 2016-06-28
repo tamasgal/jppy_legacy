@@ -12,6 +12,7 @@ namespace jppy {
         int getDetectorID();
         int getTriggerCounter();
         int getTriggerMask();
+        int getSize();
         unsigned int getOverlays();
         int getUTCSeconds();
         int getUTCNanoseconds();
