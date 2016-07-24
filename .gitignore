@@ -16,7 +16,7 @@
 *.swp
 *.egg-info
 
-*.cpp
+jppy.cpp
 
 .ropeproject
 dist
