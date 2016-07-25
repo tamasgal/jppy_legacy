@@ -30,6 +30,15 @@ cdef extern from "JDAQEventReader.h" namespace "jppy":
         void getHits(int* channel_ids, int* dom_ids, int* times, int* tots,
                      int* triggereds)
 
+#cdef extern from "JDAQSummarysliceReader.h" namespace "jppy":
+#    cdef cppclass JDAQSummarysliceReader:
+#        pass
+#        JDAQSummarysliceReader() except +
+#        JDAQSummarysliceReader(char* filename) except +
+#        void retrieveNextSummaryslice()
+#        int getUDPNumberOfReceivedPackets()
+#        bool hasNext()
+
 
 cdef class PyJDAQEventReader:
     cdef JDAQEventReader c_reader
@@ -92,3 +101,21 @@ cdef class PyJDAQEventReader:
                  np.ndarray[int, ndim=1, mode="c"] triggereds not None):
         self.c_reader.getHits(&channel_ids[0], &dom_ids[0], &times[0], &tots[0],
                               &triggereds[0])
+
+
+#cdef class PyJDAQSummarysliceReader:
+#    cdef JDAQSummarysliceReader c_reader
+#
+#    def __cinit__(self, char* filename):
+#        self.c_reader = JDAQSummarysliceReader(filename)
+#
+#    def retrieve_next_summary_slice(self):
+#        self.c_reader.retrieveNextSummaryslice()
+#
+#    @property
+#    def number_of_received_packets(self):
+#        return self.c_reader.getUDPNumberOfReceivedPackets()
+#
+#    @property
+#    def has_next(self):
+#        return self.c_reader.hasNext()
