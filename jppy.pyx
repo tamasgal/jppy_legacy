@@ -42,7 +42,7 @@ cdef extern from "JMCEventReader.h" namespace "jppy":
                        float* pos_xs, float* pos_ys, float* pos_zs,
                        float* dir_xs, float* dir_ys, float* dir_zs,
                        float* energies, float* times,)
-        void getMCTracks( int* types, int* origins, float* pure_dts, 
+        void getMCTracks(int* types, int* origins, float* pure_dts, 
                          float* pure_npes, int* idents, int* pmt_ids, 
                          float* dts, float* npes)
         void getWeights(float* w2s, float*w3s)
