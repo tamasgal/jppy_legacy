@@ -45,13 +45,7 @@ cdef extern from "JMCEventReader.h" namespace "jppy":
         void getMCTracks( int* types, int* origins, float* pure_dts, 
                          float* pure_npes, int* idents, int* pmt_ids, 
                          float* dts, float* npes)
-
-
-#cdef extern from "JDAQSummarysliceReader.h" namespace "jppy":
-#    cdef cppclass JDAQSummarysliceReader:
-#        pass
-#        JDAQSummarysliceReader() except +
-#        JDAQSummarysliceReader(char* filename) except +
+        void getWeights(float* w2s, float*w3s)
 #        void retrieveNextSummaryslice()
 #        int getUDPNumberOfReceivedPackets()
 #        bool hasNext()
@@ -187,6 +181,15 @@ cdef class PyJMCEventReader:
             &dir_ys[0],
             &dir_zs[0],
             &times[0],
+        )
+
+    def get_weights(self,
+                    np.ndarray[float, ndim=1, mode="c"] w2s not None,
+                    np.ndarray[float, ndim=1, mode="c"] w3s not None,
+                   ):
+        self.c_reader.getWeights(
+            &w2s[0],
+            &w3s[0],
         )
 
 
