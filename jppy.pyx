@@ -120,7 +120,7 @@ cdef class PyJMCEventReader:
 
     def __cinit__(self, char* filename):
         self.c_reader = JMCEventReader(filename)
-    
+
     @property
     def has_next(self):
         return self.c_reader.hasNext()
@@ -131,21 +131,21 @@ cdef class PyJMCEventReader:
     @property
     def number_of_mc_hits(self):
         return self.c_reader.getNumberOfMCHits()
-    
+
     @property
     def number_of_mc_tracks(self):
         return self.c_reader.getNumberOfMCTracks()
-    
+
     def get_mc_tracks(self,
-                 np.ndarray[int, ndim=1, mode="c"] types not None,
-                 np.ndarray[int, ndim=1, mode="c"] origins  not None,
-                 np.ndarray[float, ndim=1, mode="c"] pure_dts not None,
-                 np.ndarray[float, ndim=1, mode="c"] pure_npes not None,
-                 np.ndarray[int, ndim=1, mode="c"] idents not None,
-                 np.ndarray[int, ndim=1, mode="c"] pmt_ids not None
-                 np.ndarray[float, ndim=1, mode="c"] dts not None,
-                 np.ndarray[float, ndim=1, mode="c"] npes not None,
-                  ):
+                      np.ndarray[int, ndim=1, mode="c"] types not None,
+                      np.ndarray[int, ndim=1, mode="c"] origins  not None,
+                      np.ndarray[float, ndim=1, mode="c"] pure_dts not None,
+                      np.ndarray[float, ndim=1, mode="c"] pure_npes not None,
+                      np.ndarray[int, ndim=1, mode="c"] idents not None,
+                      np.ndarray[int, ndim=1, mode="c"] pmt_ids not None
+                      np.ndarray[float, ndim=1, mode="c"] dts not None,
+                      np.ndarray[float, ndim=1, mode="c"] npes not None,
+                     ):
         self.c_reader.getMCTracks(
             &types[0], 
             &origins[0],
@@ -156,19 +156,20 @@ cdef class PyJMCEventReader:
             &dts[0],
             &npes[0],
         )
-    
+
     def get_mc_hits(self,
-                 np.ndarray[int, ndim=1, mode="c"] types not None,
-                 np.ndarray[float, ndim=1, mode="c"] lengths not None,
-                 np.ndarray[int, ndim=1, mode="c"] pmt_ids  not None,
-                 np.ndarray[float, ndim=1, mode="c"] pos_xs not None,
-                 np.ndarray[float, ndim=1, mode="c"] pos_ys not None,
-                 np.ndarray[float, ndim=1, mode="c"] pos_zs not None,
-                 np.ndarray[float, ndim=1, mode="c"] dir_xs not None,
-                 np.ndarray[float, ndim=1, mode="c"] dir_ys not None,
-                 np.ndarray[float, ndim=1, mode="c"] dir_zs not None,
-                 np.ndarray[float, ndim=1, mode="c"] energies not None,
-                 np.ndarray[float, ndim=1, mode="c"] times not None):
+                    np.ndarray[int, ndim=1, mode="c"] types not None,
+                    np.ndarray[float, ndim=1, mode="c"] lengths not None,
+                    np.ndarray[int, ndim=1, mode="c"] pmt_ids  not None,
+                    np.ndarray[float, ndim=1, mode="c"] pos_xs not None,
+                    np.ndarray[float, ndim=1, mode="c"] pos_ys not None,
+                    np.ndarray[float, ndim=1, mode="c"] pos_zs not None,
+                    np.ndarray[float, ndim=1, mode="c"] dir_xs not None,
+                    np.ndarray[float, ndim=1, mode="c"] dir_ys not None,
+                    np.ndarray[float, ndim=1, mode="c"] dir_zs not None,
+                    np.ndarray[float, ndim=1, mode="c"] energies not None,
+                    np.ndarray[float, ndim=1, mode="c"] times not None,
+                   ):
         self.c_reader.getMCHits(
             &types[0], 
             &lengths[0], 
