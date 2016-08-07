@@ -1,48 +1,43 @@
 #include <iostream>
 #include <map>
-#include "JDAQEventReader.h"
-#include "JDAQ/JDAQEvent.hh"
+
+#include "JMC/JMCEvt.hh"
+#include "JMC/JMCHead.hh"
+#include "JMC/JMCToolkit.hh"
 #include "JSupport/JMultipleFileScanner.hh"
 
 
 namespace jppy {
 
-    JSUPPORT::JFileScanner<KM3NETDAQ::JDAQEvent> fileScanner;
-    KM3NETDAQ::JDAQEvent* event;
+    JSUPPORT::JFileScanner<JMC::JMCEvt> fileScanner;
+    JMC::JMCEvt* event;
 
-    JDAQEventReader::JDAQEventReader() {}
+    JMCReader::JMCReader() {}
 
-    JDAQEventReader::JDAQEventReader(char* filename) {
+    JMCReader::JMCEventReader(char* filename) {
         std::cout << "Filename in c++: " << filename << std::endl;
         fileScanner.open(filename);
     }
 
-    void JDAQEventReader::retrieveNextEvent() { event = fileScanner.next(); }
+    void JMCReader::retrieveNextEvent() { event = fileScanner.next(); }
 
-    int JDAQEventReader::getFrameIndex() { return event->getFrameIndex(); }
-    int JDAQEventReader::getRunNumber() { return event->getRunNumber(); }
-    int JDAQEventReader::getDetectorID() { return event->getDetectorID(); }
-    int JDAQEventReader::getTriggerCounter() { return event->getCounter(); }
-    int JDAQEventReader::getTriggerMask() { return event->getTriggerMask(); }
-    int JDAQEventReader::getSize() { return event->getSize(); }
-    unsigned int JDAQEventReader::getOverlays() { return event->getOverlays(); }
-    int JDAQEventReader::getUTCSeconds() {
-        return event->getTimesliceStart().getUTCseconds();
-    }
-    int JDAQEventReader::getUTCNanoseconds() {
-        return event->getTimesliceStart().getUTC16nanosecondcycles() * 16;
-    }
+    bool JMCEventReader::hasNext() { return fileScanner.hasNext(); }
 
-    bool JDAQEventReader::hasNext() { return fileScanner.hasNext(); }
+    JMCEventReader();
+    JMCEventReader(char* filename);
+    void retrieveNextEvent();
+    int getNumberOfMCHits();
+    int getNumberOfMCTracks();
+    void getMCHits(int* types, float* lengths, int* pmt_ids,
+                   float* pos_xs, float* pos_ys, float* pos_zs,
+                   float* dir_xs, float* dir_ys, float* dir_zs,
+                   float* energies, float* times);
+    void getMCTracks(int* types, int* origins, float* pure_dts,
+                     float* pure_npes, int* idents, int* pmt_ids,
+                     float* dts, float* npes);
+    void getWeights(float* w2s, float*w3s);
 
-    int JDAQEventReader::getNumberOfSnapshotHits()
-    {
-        std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits
-            = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
-        return snapshotHits.size();
-    }
-
-    void JDAQEventReader::getHits(int* channel_ids,
+    void JMCEventReader::getHits(int* channel_ids,
                                   int* dom_ids,
                                   int* times,
                                   int* tots,
@@ -50,8 +45,8 @@ namespace jppy {
     {
         std::map <int, std::map <int, std::map <int, int> > >  triggered_map;
 
-        std::vector<KM3NETDAQ::JDAQTriggeredHit> triggeredHits
-            = event->getHits<KM3NETDAQ::JDAQTriggeredHit>();
+        std::vector<JMC::JDAQTriggeredHit> triggeredHits
+            = event->getHits<JMC::JDAQTriggeredHit>();
 
         int nTriggeredHits = triggeredHits.size();
 
@@ -62,8 +57,8 @@ namespace jppy {
             triggered_map[channel_id][dom_id][time] = 1;
         }
 
-        std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits
-            = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
+        std::vector<JMC::JDAQSnapshotHit> snapshotHits
+            = event->getHits<JMC::JDAQSnapshotHit>();
 
         int nSnapshotHits = snapshotHits.size();
 

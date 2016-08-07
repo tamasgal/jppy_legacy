@@ -22,11 +22,11 @@ for i in range(4):
     tots = np.zeros(n, dtype='i')
     triggereds = np.zeros(n, dtype='i')
     reader.get_hits(channel_ids, dom_ids, times, tots, triggereds)
-    print("  Snapshot Hits (actual python interface): \n"
-          "    ToTs:        {0}\n"
-          "    Times:       {1}\n"
-          "    DOM IDs:     {2}\n"
+    print("  Snapshot Hits: \n"
           "    Channel IDs: {3}\n"
+          "    DOM IDs:     {2}\n"
+          "    Times:       {1}\n"
+          "    ToTs:        {0}\n"
           "    Triggereds:  {4}"
           .format(tots, times, dom_ids, channel_ids, triggereds))
 

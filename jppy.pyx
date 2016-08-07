@@ -31,23 +31,6 @@ cdef extern from "JDAQEventReader.h" namespace "jppy":
                      int* triggereds)
 
 
-cdef extern from "JMCEventReader.h" namespace "jppy":
-    cdef cppclass JMCEventReader:
-        JMCEventReader() except +
-        JMCEventReader(char* filename) except +
-        void retrieveNextEvent()
-        int getNumberOfMCHits()
-        int getNumberOfMCTracks()
-        void getMCHits(int* types, float* lengths, int* pmt_ids, 
-                       float* pos_xs, float* pos_ys, float* pos_zs,
-                       float* dir_xs, float* dir_ys, float* dir_zs,
-                       float* energies, float* times,)
-        void getMCTracks(int* types, int* origins, float* pure_dts, 
-                         float* pure_npes, int* idents, int* pmt_ids, 
-                         float* dts, float* npes)
-        void getWeights(float* w2s, float*w3s)
-
-
 #cdef extern from "JDAQSummarysliceReader.h" namespace "jppy":
 #    cdef cppclass JDAQSummarysliceReader:
 #        pass
@@ -119,85 +102,6 @@ cdef class PyJDAQEventReader:
                  np.ndarray[int, ndim=1, mode="c"] triggereds not None):
         self.c_reader.getHits(&channel_ids[0], &dom_ids[0], &times[0], &tots[0],
                               &triggereds[0])
-
-
-cdef class PyJMCEventReader:
-    cdef JMCEventReader c_reader
-
-    def __cinit__(self, char* filename):
-        self.c_reader = JMCEventReader(filename)
-
-    @property
-    def has_next(self):
-        return self.c_reader.hasNext()
-
-    def retrieve_next_event(self):
-        self.c_reader.retrieveNextEvent()
-
-    @property
-    def number_of_mc_hits(self):
-        return self.c_reader.getNumberOfMCHits()
-
-    @property
-    def number_of_mc_tracks(self):
-        return self.c_reader.getNumberOfMCTracks()
-
-    def get_mc_tracks(self,
-                      np.ndarray[int, ndim=1, mode="c"] types not None,
-                      np.ndarray[int, ndim=1, mode="c"] origins  not None,
-                      np.ndarray[float, ndim=1, mode="c"] pure_dts not None,
-                      np.ndarray[float, ndim=1, mode="c"] pure_npes not None,
-                      np.ndarray[int, ndim=1, mode="c"] idents not None,
-                      np.ndarray[int, ndim=1, mode="c"] pmt_ids not None
-                      np.ndarray[float, ndim=1, mode="c"] dts not None,
-                      np.ndarray[float, ndim=1, mode="c"] npes not None,
-                     ):
-        self.c_reader.getMCTracks(
-            &types[0], 
-            &origins[0],
-            &pure_dts[0],
-            &pure_npes[0],
-            &idents[0],
-            &pmt_ids[0],
-            &dts[0],
-            &npes[0],
-        )
-
-    def get_mc_hits(self,
-                    np.ndarray[int, ndim=1, mode="c"] types not None,
-                    np.ndarray[float, ndim=1, mode="c"] lengths not None,
-                    np.ndarray[int, ndim=1, mode="c"] pmt_ids  not None,
-                    np.ndarray[float, ndim=1, mode="c"] pos_xs not None,
-                    np.ndarray[float, ndim=1, mode="c"] pos_ys not None,
-                    np.ndarray[float, ndim=1, mode="c"] pos_zs not None,
-                    np.ndarray[float, ndim=1, mode="c"] dir_xs not None,
-                    np.ndarray[float, ndim=1, mode="c"] dir_ys not None,
-                    np.ndarray[float, ndim=1, mode="c"] dir_zs not None,
-                    np.ndarray[float, ndim=1, mode="c"] energies not None,
-                    np.ndarray[float, ndim=1, mode="c"] times not None,
-                   ):
-        self.c_reader.getMCHits(
-            &types[0], 
-            &lengths[0], 
-            &pmt_ids[0], 
-            &energies[0],
-            &pos_xs[0],
-            &pos_ys[0],
-            &pos_zs[0],
-            &dir_xs[0],
-            &dir_ys[0],
-            &dir_zs[0],
-            &times[0],
-        )
-
-    def get_weights(self,
-                    np.ndarray[float, ndim=1, mode="c"] w2s not None,
-                    np.ndarray[float, ndim=1, mode="c"] w3s not None,
-                   ):
-        self.c_reader.getWeights(
-            &w2s[0],
-            &w3s[0],
-        )
 
 
 #cdef class PyJDAQSummarysliceReader:
