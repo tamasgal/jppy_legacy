@@ -46,6 +46,13 @@ cdef extern from "JMCEventReader.h" namespace "jppy":
                          float* pure_npes, int* idents, int* pmt_ids, 
                          float* dts, float* npes)
         void getWeights(float* w2s, float*w3s)
+
+
+#cdef extern from "JDAQSummarysliceReader.h" namespace "jppy":
+#    cdef cppclass JDAQSummarysliceReader:
+#        pass
+#        JDAQSummarysliceReader() except +
+#        JDAQSummarysliceReader(char* filename) except +
 #        void retrieveNextSummaryslice()
 #        int getUDPNumberOfReceivedPackets()
 #        bool hasNext()
