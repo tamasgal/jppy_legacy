@@ -36,10 +36,10 @@ cdef extern from "JMCEventReader.h" namespace "jppy":
         JMCEventReader() except +
         JMCEventReader(char* filename) except +
         void retrieveNextEvent()
-        int getNumberOfMCHits
-        int getNumberOfMCTracks
-        void getHits()
-        void getTracks()
+        int getNumberOfMCHits()
+        int getNumberOfMCTracks()
+        void getMCHits()
+        void getMCTracks()
 
 
 #cdef extern from "JDAQSummarysliceReader.h" namespace "jppy":
@@ -136,7 +136,7 @@ cdef class PyJMCEventReader:
     def number_of_mc_tracks(self):
         return self.c_reader.getNumberOfMCTracks()
     
-    def get_tracks(self,
+    def get_mc_tracks(self,
                  np.ndarray[int, ndim=1, mode="c"] types not None,
                  np.ndarray[int, ndim=1, mode="c"] origins  not None,
                  np.ndarray[float, ndim=1, mode="c"] pure_dts not None,
@@ -146,7 +146,7 @@ cdef class PyJMCEventReader:
                  np.ndarray[float, ndim=1, mode="c"] dts not None,
                  np.ndarray[float, ndim=1, mode="c"] npes not None,
                   ):
-        self.c_reader.getTracks(
+        self.c_reader.getMCTracks(
             &types[0], 
             &origins[0],
             &pure_dts[0],
@@ -157,7 +157,7 @@ cdef class PyJMCEventReader:
             &npes[0],
         )
     
-    def get_hits(self,
+    def get_mc_hits(self,
                  np.ndarray[int, ndim=1, mode="c"] types not None,
                  np.ndarray[float, ndim=1, mode="c"] lengths not None,
                  np.ndarray[int, ndim=1, mode="c"] pmt_ids  not None,
@@ -169,7 +169,7 @@ cdef class PyJMCEventReader:
                  np.ndarray[float, ndim=1, mode="c"] dir_zs not None,
                  np.ndarray[float, ndim=1, mode="c"] energies not None,
                  np.ndarray[float, ndim=1, mode="c"] times not None):
-        self.c_reader.getHits(
+        self.c_reader.getMCHits(
             &types[0], 
             &lengths[0], 
             &pmt_ids[0], 
