@@ -52,6 +52,16 @@ extensions = [
                          'MathCore', 'Gpad', 'Thread'],
               # extra_link_args=[]
               ),
+    #Extension("jppy_mc", ["jppy_mc.pyx"],
+    #          include_dirs=[JPP_INC, ROOT_INC, numpy.get_include()],
+    #          library_dirs=[ROOT_LIB, JPP_LIB],
+    #          libraries=[
+    #                     'pthread', 'dl', 'util', 'm',
+    #                     'Core', 'Cint', 'RIO', 'Net', 'Hist', 'Graf',
+    #                     'Graf3d', 'Tree', 'Rint', 'Matrix', 'Physics',
+    #                     'MathCore', 'Gpad', 'Thread'],
+    #          # extra_link_args=[]
+    #          ),
 ]
 
 setup(name='jppy',
