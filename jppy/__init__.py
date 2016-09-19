@@ -1,0 +1,1 @@
+from jppy.daqeventreader import PyDAQEventReader
