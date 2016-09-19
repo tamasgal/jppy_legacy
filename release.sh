@@ -9,6 +9,8 @@ fi
 
 VERSION=$1
 SVN="http://svn.km3net.de/dataformats/jppy"
+export JPP_DIR=dummy
+export JPP_LIB=dummy
 
 git checkout develop
 git pull
