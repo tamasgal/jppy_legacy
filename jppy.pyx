@@ -30,6 +30,7 @@ cdef extern from "JDAQEventReader.h" namespace "jppy":
         void getHits(int* channel_ids, int* dom_ids, int* times, int* tots,
                      int* triggereds)
 
+
 #cdef extern from "JDAQSummarysliceReader.h" namespace "jppy":
 #    cdef cppclass JDAQSummarysliceReader:
 #        pass
