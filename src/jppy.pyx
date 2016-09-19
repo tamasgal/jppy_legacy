@@ -1,0 +1,2 @@
+from daqeventreader import PyJDAQEventReader
+from daqsummaryslicereader import PyJDAQSummarysliceReader
