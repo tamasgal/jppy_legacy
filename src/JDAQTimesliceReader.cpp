@@ -21,18 +21,31 @@ namespace jppy {
         fileScanner.open(filename);
     }
 
-    void JDAQTimesliceReader::retrieveNextTimeslice() { timeslice = fileScanner.next(); }
+    void JDAQTimesliceReader::retrieveNextTimeslice() {
+        timeslice = fileScanner.next();
+    }
     bool JDAQTimesliceReader::hasNext() { return fileScanner.hasNext(); }
 
     void JDAQTimesliceReader::getHits() {
-        for(JDAQTimeslice::const_iterator superframe = timeslice->begin();
-            superframe != timeslice->end();
-            superframe++) {
-            for(JDAQSuperFrame::const_iterator hit=superframe->begin();
-                hit!=superframe->end();
-                ++hit ) {
-                //std::cout << "Hit..." << std::endl;
+        int n_superframe = 0;
+        int n_hit = 0;
+        for( JDAQTimeslice::const_iterator superframe = timeslice->begin();
+             superframe != timeslice->end();
+             superframe++ ) {
+
+            std::cout << "Superframe #" << n_superframe;
+            for( JDAQSuperFrame::const_iterator hit=superframe->begin();
+                 hit!=superframe->end();
+                 ++hit ) {
+                n_hit += 1;
+                //std::cout << "    DOM: " << superframe->getModuleID();
+                //std::cout << " , PMT: " << int(hit->getPMT());
+                //std::cout << " , time: " << hit->getT();
+                //std::cout << " , tot: " << int(hit->getToT()) << std::endl;
             }
+            std::cout << " - " << n_hit << " hits" << std::endl;
+            n_hit = 0;
+            n_superframe += 1;
         }
     }
 }
