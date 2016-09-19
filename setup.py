@@ -52,7 +52,7 @@ extensions = [
                          'MathCore', 'Gpad', 'Thread'],
               # extra_link_args=[]
               ),
-    Extension("jppy/daqsummaryslicereader", ["jppy/summaryslicereader.pyx"],
+    Extension("jppy/daqsummaryslicereader", ["jppy/daqsummaryslicereader.pyx"],
               include_dirs=['src/', JPP_INC, ROOT_INC, numpy.get_include()],
               library_dirs=[ROOT_LIB, JPP_LIB],
               libraries=['KM3NeTDAQROOT',
