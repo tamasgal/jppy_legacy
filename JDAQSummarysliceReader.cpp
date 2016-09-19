@@ -1,11 +1,4 @@
-#include <iomanip>
-#include <iostream>
-
-
-#include "JDAQ/JDAQSummaryslice.hh"
-#include "JDAQSummarysliceReader.h"
-#include "JSupport/JMultipleFileScanner.hh"
-#include "JSupport/JTreeScanner.hh"
+#include "common.h"
 
 
 namespace jppy {
@@ -13,6 +6,7 @@ namespace jppy {
     JSUPPORT::JMultipleFileScanner<KM3NETDAQ::JDAQSummaryslice> inputFiles;
     JSUPPORT::JTreeScanner<KM3NETDAQ::JDAQSummaryslice> treeScanner(inputFiles);
     KM3NETDAQ::JDAQSummaryslice summary;
+    KM3NETDAQ::JDAQChronometer chronometer;
 
     JDAQSummarysliceReader::JDAQSummarysliceReader() {}
 
@@ -32,16 +26,24 @@ namespace jppy {
 
         std::cout << "New summary" << std::endl;
         summary = *treeScanner.next();
-        //std::cout << summary << std::endl;
+//        std::cout << summary->getUTCseconds() << std::endl;
+        std::cout << dynamic_cast<const KM3NETDAQ::JDAQChronometer&> (summary) <<  std::endl;
+        chronometer = dynamic_cast<const KM3NETDAQ::JDAQChronometer&> (summary);
     }
 
     int JDAQSummarysliceReader::getUDPNumberOfReceivedPackets() {
+        std::cout << chronometer.getRunNumber() << std::endl;
+        std::cout << chronometer.getDetectorID() << std::endl;
+        std::cout << chronometer.getFrameIndex() << std::endl;
+        std::cout << chronometer.getTimesliceStart() << std::endl;
         std::cout << "Number of received packets:" << std::endl;
         for (KM3NETDAQ::JDAQSummaryslice::const_iterator frame = summary.begin();
              frame != summary.end();
              ++frame) {
             std::cout << frame->getUDPNumberOfReceivedPackets() << " / "
-                      << frame->getUDPMaximalSequenceNumber() << std::endl;
+                      << frame->getUDPMaximalSequenceNumber() << " from "
+                      << frame->getModuleID()
+                      << std::endl;
         }
 
 
