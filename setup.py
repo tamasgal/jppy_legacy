@@ -50,6 +50,7 @@ setup(name='jppy',
       description='Python bindings for JPP',
       author='Tamas Gal',
       author_email='tgal@km3net.de',
+      packages=['jppy'],
       install_requires=['cython', 'numpy'],
       ext_modules=cythonize(extensions, language='c++', gdb_debug=True),
       classifiers=[
