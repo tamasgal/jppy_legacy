@@ -20,3 +20,7 @@ jppy.cpp
 
 .ropeproject
 dist
+
+# Cython build files
+src/daqeventreader.cpp
+src/summaryslicereader.cpp
