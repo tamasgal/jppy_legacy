@@ -1,1 +1,1 @@
-from daqeventreader import PyDAQEventReader
+from jppy.daqeventreader import PyJDAQEventReader
