@@ -1,8 +1,11 @@
+#include "common.h"
+/*
 #include <iostream>
 #include <map>
 #include "JDAQEventReader.h"
 #include "JDAQ/JDAQEvent.hh"
 #include "JSupport/JMultipleFileScanner.hh"
+*/
 
 
 namespace jppy {
