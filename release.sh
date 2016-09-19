@@ -15,8 +15,8 @@ git pull
 
 git flow release start "${VERSION}"
 
-vim jppy/setup.py
-git add jppy/setup.py
+vim setup.py
+git add setup.py
 git commit -m "Bumps version number"
 
 git flow release finish "${VERSION}"
