@@ -18,7 +18,7 @@ cdef extern from "JDAQTimesliceReader.h" namespace "jppy":
         void retrieveNextSuperframe()
         bool hasNext()
         bool hasNextSuperframe()
-        void getHits()
+        void getHits(int* channel_ids, int* dom_ids, int* times, int* tots)
         int getNumberOfHits()
 
 
@@ -34,8 +34,12 @@ cdef class PyJDAQTimesliceReader:
     def retrieve_next_superframe(self):
         self.c_reader.retrieveNextSuperframe()
 
-    def get_hits(self):
-        self.c_reader.getHits()
+    def get_hits(self,
+                 np.ndarray[int, ndim=1, mode="c"] channel_ids not None,
+                 np.ndarray[int, ndim=1, mode="c"] dom_ids  not None,
+                 np.ndarray[int, ndim=1, mode="c"] times not None,
+                 np.ndarray[int, ndim=1, mode="c"] tots not None):
+        self.c_reader.getHits(&channel_ids[0], &dom_ids[0], &times[0], &tots[0])
 
     @property
     def has_next(self):

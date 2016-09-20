@@ -11,7 +11,7 @@ namespace jppy {
         bool hasNext();
         bool hasNextSuperframe();
         int getNumberOfHits();
-        void getHits();
+        void getHits(int* channel_ids, int* dom_ids, int* times, int* tots);
     };
 }
 

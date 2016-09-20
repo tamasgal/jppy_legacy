@@ -37,16 +37,19 @@ namespace jppy {
         return superframe_it->size();
     }
 
-    void JDAQTimesliceReader::getHits() {
-        std::cout << "Superframe" << std::endl;
+    void JDAQTimesliceReader::getHits(int* channel_ids,
+                                      int* dom_ids,
+                                      int* times,
+                                      int* tots) {
+        int i = 0;
         for( JDAQSuperFrame::const_iterator hit=superframe_it->begin();
              hit!=superframe_it->end();
              ++hit ) {
-            //n_hit += 1;
-            std::cout << "    DOM: " << superframe_it->getModuleID();
-            std::cout << " , PMT: " << int(hit->getPMT());
-            std::cout << " , time: " << hit->getT();
-            std::cout << " , tot: " << int(hit->getToT()) << std::endl;
+            channel_ids[i] = int(hit->getPMT());
+            dom_ids[i] = superframe_it->getModuleID();
+            times[i] = hit->getT();
+            tots[i] = int(hit->getToT());
+            i++;
         }
     }
 }
