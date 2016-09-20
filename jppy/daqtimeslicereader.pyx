@@ -15,8 +15,11 @@ cdef extern from "JDAQTimesliceReader.h" namespace "jppy":
         JDAQTimesliceReader() except +
         JDAQTimesliceReader(char* filename) except +
         void retrieveNextTimeslice()
+        void retrieveNextSuperframe()
         bool hasNext()
+        bool hasNextSuperframe()
         void getHits()
+        int getNumberOfHits()
 
 
 cdef class PyJDAQTimesliceReader:
@@ -28,9 +31,20 @@ cdef class PyJDAQTimesliceReader:
     def retrieve_next_timeslice(self):
         self.c_reader.retrieveNextTimeslice()
 
+    def retrieve_next_superframe(self):
+        self.c_reader.retrieveNextSuperframe()
+
     def get_hits(self):
         self.c_reader.getHits()
 
     @property
     def has_next(self):
         return self.c_reader.hasNext()
+
+    @property
+    def has_next_superframe(self):
+        return self.c_reader.hasNextSuperframe()
+
+    @property
+    def number_of_hits(self):
+        return self.c_reader.getNumberOfHits()

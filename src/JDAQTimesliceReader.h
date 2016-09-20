@@ -7,7 +7,10 @@ namespace jppy {
         JDAQTimesliceReader();
         JDAQTimesliceReader(char* filename);
         void retrieveNextTimeslice();
+        void retrieveNextSuperframe();
         bool hasNext();
+        bool hasNextSuperframe();
+        int getNumberOfHits();
         void getHits();
     };
 }
