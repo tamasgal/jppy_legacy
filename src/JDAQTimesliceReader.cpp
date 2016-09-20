@@ -14,6 +14,8 @@ namespace jppy {
     JSUPPORT::JFileScanner<KM3NETDAQ::JDAQTimeslice> fileScanner;
     KM3NETDAQ::JDAQTimeslice* timeslice;
     JDAQTimeslice::const_iterator superframe_it;
+    int timeslice_idx = 0;
+    int superframe_idx = 0;
 
     JDAQTimesliceReader::JDAQTimesliceReader() {}
 
@@ -25,15 +27,21 @@ namespace jppy {
     void JDAQTimesliceReader::retrieveNextTimeslice() {
         timeslice = fileScanner.next();
         superframe_it = timeslice->begin();
+        timeslice_idx += 1;
+        superframe_idx = 0;
+        //std::cout << "Timeslice idx: " << superframe_idx << std::endl;
     }
     void JDAQTimesliceReader::retrieveNextSuperframe() {
-        ++superframe_it;
+        superframe_it++;
+        //std::cout << "Superframe idx: " << superframe_idx << std::endl;
+        superframe_idx += 1;
     }
     bool JDAQTimesliceReader::hasNext() { return fileScanner.hasNext(); }
     bool JDAQTimesliceReader::hasNextSuperframe() {
         return superframe_it != timeslice->end();
     }
     int JDAQTimesliceReader::getNumberOfHits() {
+        //std::cout << superframe_it->getModuleID() << std::endl;
         return superframe_it->size();
     }
 
@@ -47,6 +55,7 @@ namespace jppy {
              ++hit ) {
             channel_ids[i] = int(hit->getPMT());
             dom_ids[i] = superframe_it->getModuleID();
+            //std::cout << superframe_it->getModuleID() << std::endl;
             times[i] = hit->getT();
             tots[i] = int(hit->getToT());
             i++;
