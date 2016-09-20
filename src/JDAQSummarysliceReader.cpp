@@ -32,6 +32,7 @@ namespace jppy {
     }
 
     int JDAQSummarysliceReader::getUDPNumberOfReceivedPackets() {
+        std::cout << "--------- next frame ---------" << std::endl;
         std::cout << chronometer.getRunNumber() << std::endl;
         std::cout << chronometer.getDetectorID() << std::endl;
         std::cout << chronometer.getFrameIndex() << std::endl;
@@ -40,10 +41,14 @@ namespace jppy {
         for (KM3NETDAQ::JDAQSummaryslice::const_iterator frame = summary.begin();
              frame != summary.end();
              ++frame) {
+            std::cout << "White rabbit status: " << frame->testWhiteRabbitStatus() << std::endl;
             std::cout << frame->getUDPNumberOfReceivedPackets() << " / "
                       << frame->getUDPMaximalSequenceNumber() << " from "
                       << frame->getModuleID()
                       << std::endl;
+            for (int i = 0; i < 31; i++) {
+                std::cout << "     HRV for PMT " << i << ": " << frame->testHighRateVeto(0) << std::endl;
+            }
         }
 
 
