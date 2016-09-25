@@ -26,7 +26,7 @@ cdef class PyJDAQSummarysliceReader:
     def __cinit__(self, char* filename):
         self.c_reader = JDAQSummarysliceReader(filename)
 
-    def retrieve_next_summary_slice(self):
+    def retrieve_next_summaryslice(self):
         self.c_reader.retrieveNextSummaryslice()
 
     @property
