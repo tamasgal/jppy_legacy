@@ -6,20 +6,28 @@ namespace jppy {
     public:
         JDAQSummarysliceReader();
         JDAQSummarysliceReader(char* filename);
+
+        // Summaryslice
         void retrieveNextSummaryslice();
-        void retrieveNextFrame();
-        int getModuleID();
-        int getUDPNumberOfReceivedPackets();
-        int getUDPMaximalSequenceNumber();
+        bool hasNext();
+        int getNumberOfFrames();
         int getRunNumber();
         int getDetectorID();
         int getFrameIndex();
         int getUTCSeconds();
         int getUTCNanoseconds();
         //int getTimesliceStart();
-        bool hasNext();
+        bool hasUDPTrailer();
+        bool testWhiteRabbitStatus();
+        bool testHighRateVeto();
+        bool testFIFOStatus();
+
+        // Frame
         bool hasNextFrame();
-        void debug();
+        void retrieveNextFrame();
+        int getModuleID();
+        int getUDPNumberOfReceivedPackets();
+        int getUDPMaximalSequenceNumber();
     };
 
 }

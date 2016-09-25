@@ -15,19 +15,25 @@ cdef extern from "JDAQSummarysliceReader.h" namespace "jppy":
     cdef cppclass JDAQSummarysliceReader:
         JDAQSummarysliceReader() except +
         JDAQSummarysliceReader(char* filename) except +
+
+        bool hasNext()
         void retrieveNextSummaryslice()
-        void retrieveNextFrame()
+        int getNumberOfFrames()
         int getRunNumber()
         int getDetectorID()
         int getFrameIndex()
         int getUTCSeconds()
         int getUTCNanoseconds()
+
+        bool hasNextFrame()
+        void retrieveNextFrame()
         int getModuleID()
         int getUDPNumberOfReceivedPackets()
         int getUDPMaximalSequenceNumber()
-        bool hasNext()
-        bool hasNextFrame()
-
+        bool hasUDPTrailer();
+        bool testWhiteRabbitStatus();
+        bool testHighRateVeto();
+        bool testFIFOStatus();
 
 cdef class PyJDAQSummarysliceReader:
     cdef JDAQSummarysliceReader c_reader
@@ -49,6 +55,9 @@ cdef class PyJDAQSummarysliceReader:
     def has_next_frame(self): return self.c_reader.hasNextFrame()
 
     @property
+    def number_of_frames(self): return self.c_reader.getNumberOfFrames()
+
+    @property
     def run_number(self): return self.c_reader.getRunNumber()
 
     @property
@@ -63,7 +72,6 @@ cdef class PyJDAQSummarysliceReader:
     @property
     def utc_nanoseconds(self): return self.c_reader.getUTCNanoseconds()
 
-    
     # Frame
     @property
     def module_id(self):
@@ -76,3 +84,19 @@ cdef class PyJDAQSummarysliceReader:
     @property
     def max_sequence_number(self):
         return self.c_reader.getUDPMaximalSequenceNumber()
+
+    @property
+    def has_udp_trailer(self):
+        return self.c_reader.hasUDPTrailer();
+
+    @property
+    def white_rabbit_status(self):
+        return self.c_reader.testWhiteRabbitStatus();
+
+    @property
+    def high_rate_veto(self):
+        return self.c_reader.testHighRateVeto();
+
+    @property
+    def fifo_status(self):
+        return self.c_reader.testFIFOStatus();
