@@ -74,7 +74,7 @@ cdef class PyJDAQSummarysliceReader:
 
     # Frame
     @property
-    def module_id(self):
+    def dom_id(self):
         return self.c_reader.getModuleID()
 
     @property
