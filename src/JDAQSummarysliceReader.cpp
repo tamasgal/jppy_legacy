@@ -1,60 +1,91 @@
 #include "common.h"
 
-
 namespace jppy {
-//    JSUPPORT::JFileScanner<KM3NETDAQ::JDAQSummaryslice> fileScanner;
-    JSUPPORT::JMultipleFileScanner<KM3NETDAQ::JDAQSummaryslice> inputFiles;
-    JSUPPORT::JTreeScanner<KM3NETDAQ::JDAQSummaryslice> treeScanner(inputFiles);
-    KM3NETDAQ::JDAQSummaryslice summary;
+    JSUPPORT::JFileScanner<KM3NETDAQ::JDAQSummaryslice> fileScanner;
+    KM3NETDAQ::JDAQSummaryslice* summary;
+    KM3NETDAQ::JDAQSummaryslice::const_iterator frame_it;
     KM3NETDAQ::JDAQChronometer chronometer;
+    int summary_idx = 0;
+    int frame_idx = 0;
 
     JDAQSummarysliceReader::JDAQSummarysliceReader() {}
 
     JDAQSummarysliceReader::JDAQSummarysliceReader(char* filename) {
         std::cout << "Filename in c++: " << filename << std::endl;
-        inputFiles.addFilename(filename);
-        inputFiles.hasNext();  // this is needed! why??
-        //std::cout << inputFiles.hasNext() << std::endl;
+        fileScanner.open(filename);
     }
 
     void JDAQSummarysliceReader::retrieveNextSummaryslice() {
-        //summary = *treeScanner.next();
-        if(!treeScanner.hasNext()) {
+        if(!fileScanner.hasNext()) {
             std::cout << "No summary slices!" << std::endl;
             return;
         }
 
         std::cout << "New summary" << std::endl;
-        summary = *treeScanner.next();
-//        std::cout << summary->getUTCseconds() << std::endl;
-        std::cout << dynamic_cast<const KM3NETDAQ::JDAQChronometer&> (summary) <<  std::endl;
-        chronometer = dynamic_cast<const KM3NETDAQ::JDAQChronometer&> (summary);
+        summary = fileScanner->next();
+        chronometer = dynamic_cast<const KM3NETDAQ::JDAQChronometer&> (*summary);
+        frame_it = summary->begin();
+        summary_idx++;
+        frame_idx = 0;
+    }
+
+    int JDAQSummarysliceReader::getRunNumber() {
+        return chronometer.getRunNumber();
+    }
+
+    int JDAQSummarysliceReader::getDetectorID() {
+        return chronometer.getDetectorID();
+    }
+
+    int JDAQSummarysliceReader::getFrameIndex() {
+        return chronometer.getFrameIndex();
+    }
+
+    int JDAQSummarysliceReader::getUTCSeconds() {
+        return chronometer.getTimesliceStart().getUTCseconds();
+    }
+
+    int JDAQSummarysliceReader::getUTCNanoseconds() {
+        return chronometer.getTimesliceStart().getUTC16nanosecondcycles() * 16;
+    }
+
+    /* Frame */
+
+    void JDAQSummarysliceReader::retrieveNextFrame() {
+        frame_it++;
+        frame_idx++;
+    }
+
+
+    int JDAQSummarysliceReader::getModuleID() {
+        return frame_it->getModuleID();
     }
 
     int JDAQSummarysliceReader::getUDPNumberOfReceivedPackets() {
-        std::cout << "--------- next frame ---------" << std::endl;
-        std::cout << chronometer.getRunNumber() << std::endl;
-        std::cout << chronometer.getDetectorID() << std::endl;
-        std::cout << chronometer.getFrameIndex() << std::endl;
-        std::cout << chronometer.getTimesliceStart() << std::endl;
-        std::cout << "Number of received packets:" << std::endl;
+        return frame_it->getUDPNumberOfReceivedPackets();
+    }
+
+    int JDAQSummarysliceReader::getUDPMaximalSequenceNumber() {
+        return frame_it->getUDPMaximalSequenceNumber();
+    }
+
+        /*
+    void debug() {
         for (KM3NETDAQ::JDAQSummaryslice::const_iterator frame = summary.begin();
              frame != summary.end();
              ++frame) {
             std::cout << "White rabbit status: " << frame->testWhiteRabbitStatus() << std::endl;
-            std::cout << frame->getUDPNumberOfReceivedPackets() << " / "
-                      << frame->getUDPMaximalSequenceNumber() << " from "
                       << frame->getModuleID()
                       << std::endl;
             for (int i = 0; i < 31; i++) {
                 std::cout << "     HRV for PMT " << i << ": " << frame->testHighRateVeto(0) << std::endl;
             }
         }
-
-
-        return 23;
-        //return summary.getUDPNumberOfReceivedPackets();
     }
 
-    bool JDAQSummarysliceReader::hasNext() { return treeScanner.hasNext(); }
+        */
+    bool JDAQSummarysliceReader::hasNext() { return fileScanner.hasNext(); }
+    bool JDAQSummarysliceReader::hasNextFrame() {
+        return frame_it != summary->end();
+    }
 }
