@@ -40,6 +40,9 @@ namespace jppy {
     bool JDAQTimesliceReader::hasNextSuperframe() {
         return superframe_it != timeslice->end();
     }
+    int JDAQTimesliceReader::getNumberOfFrames() {
+        return timeslice->size();
+    }
     int JDAQTimesliceReader::getNumberOfHits() {
         //std::cout << superframe_it->getModuleID() << std::endl;
         return superframe_it->size();

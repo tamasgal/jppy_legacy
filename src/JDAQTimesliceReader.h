@@ -10,6 +10,7 @@ namespace jppy {
         void retrieveNextSuperframe();
         bool hasNext();
         bool hasNextSuperframe();
+        int getNumberOfFrames();
 
         // Frame
 	int getModuleID();
