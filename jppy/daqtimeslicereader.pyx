@@ -47,7 +47,7 @@ cdef class PyJDAQTimesliceReader:
 
     @property
     def n_frames(self):
-        self.c_reader.getNumberOfFrames()
+        return self.c_reader.getNumberOfFrames()
 
     def get_hits(self,
                  np.ndarray[int, ndim=1, mode="c"] channel_ids not None,
