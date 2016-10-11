@@ -21,6 +21,7 @@ cdef extern from "JDAQTimesliceReader.h" namespace "jppy":
         void getHits(int* channel_ids, int* dom_ids, int* times, int* tots)
         int getNumberOfHits()
         int getModuleID()
+        int getFrameIndex()
         int getUTCSeconds()
         int getUTCNanoseconds()
         int getUDPNumberOfReceivedPackets()
@@ -59,6 +60,10 @@ cdef class PyJDAQTimesliceReader:
         return self.c_reader.hasNextSuperframe()
 
     # Frame
+    @property
+    def frame_index(self):
+        return self.c_reader.getFrameIndex()
+
     @property
     def dom_id(self):
         return self.c_reader.getModuleID()

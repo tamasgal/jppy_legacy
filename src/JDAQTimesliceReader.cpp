@@ -45,6 +45,10 @@ namespace jppy {
         return superframe_it->size();
     }
 
+    int JDAQTimesliceReader::getFrameIndex() {
+        return superframe_it->getFrameIndex();
+    }
+
     int JDAQTimesliceReader::getModuleID() {
         return superframe_it->getModuleID();
     }

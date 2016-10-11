@@ -13,6 +13,7 @@ namespace jppy {
 
         // Frame
 	int getModuleID();
+        int getFrameIndex();
 	int getUTCSeconds();
 	int getUTCNanoseconds();
 	int getUDPNumberOfReceivedPackets();
