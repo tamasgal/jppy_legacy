@@ -38,6 +38,8 @@ cdef class PyJDAQTimesliceReader:
 
     def __cinit__(self, char* filename):
         self.c_reader = JDAQTimesliceReader(filename)
+
+    def __init__(self, *args, **kwargs):
         self.slices = self.slice_generator()
 
     def retrieve_next_timeslice(self):
