@@ -38,6 +38,7 @@ cdef class PyJDAQTimesliceReader:
 
     def __cinit__(self, char* filename):
         self.c_reader = JDAQTimesliceReader(filename)
+        self.slices = self.slice_generator()
 
     def retrieve_next_timeslice(self):
         self.c_reader.retrieveNextTimeslice()
@@ -106,3 +107,23 @@ cdef class PyJDAQTimesliceReader:
     @property
     def number_of_hits(self):
         return self.c_reader.getNumberOfHits()
+
+    def slice_generator(self):
+        while self.has_next:
+            self.retrieve_next_timeslice()
+            yield self.frame_generator()
+
+    def frame_generator(self):
+        while self.has_next_superframe:
+            yield self
+            self.retrieve_next_superframe()
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        """Python 2/3 compatibility for iterators"""
+        return self.__next__()
+
+    def __next__(self):
+        return next(self.slices)
