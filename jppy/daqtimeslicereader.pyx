@@ -112,7 +112,7 @@ cdef class PyJDAQTimesliceReader:
     def slice_generator(self):
         while self.has_next:
             self.retrieve_next_timeslice()
-            yield self.frame_generator()
+            yield self
 
     def frame_generator(self):
         while self.has_next_superframe:
