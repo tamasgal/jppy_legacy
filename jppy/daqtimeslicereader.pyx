@@ -21,6 +21,8 @@ cdef extern from "JDAQTimesliceReader.h" namespace "jppy":
         void getHits(int* channel_ids, int* dom_ids, int* times, int* tots)
         int getNumberOfHits()
         int getModuleID()
+        int getUTCSeconds()
+        int getUTCNanoseconds()
         int getUDPNumberOfReceivedPackets()
         int getUDPMaximalSequenceNumber()
         bool hasUDPTrailer()
@@ -56,34 +58,40 @@ cdef class PyJDAQTimesliceReader:
     def has_next_superframe(self):
         return self.c_reader.hasNextSuperframe()
 
-	# Frame
-	@property
-	def dom_id(self):
-	   return self.c_reader.getModuleID()
+    # Frame
+    @property
+    def dom_id(self):
+        return self.c_reader.getModuleID()
 
-	@property
-	def number_of_received_packets(self):
-	   return self.c_reader.getUDPNumberOfReceivedPackets()
+    @property
+    def utc_seconds(self): return self.c_reader.getUTCSeconds()
 
-	@property
-	def max_sequence_number(self):
-	   return self.c_reader.getUDPMaximalSequenceNumber()
+    @property
+    def utc_nanoseconds(self): return self.c_reader.getUTCNanoseconds()
 
-	@property
-	def has_udp_trailer(self):
-	   return self.c_reader.hasUDPTrailer();
+    @property
+    def number_of_received_packets(self):
+        return self.c_reader.getUDPNumberOfReceivedPackets()
 
-	@property
-	def white_rabbit_status(self):
-	   return self.c_reader.testWhiteRabbitStatus();
+    @property
+    def max_sequence_number(self):
+        return self.c_reader.getUDPMaximalSequenceNumber()
 
-	@property
-	def high_rate_veto(self):
-	   return self.c_reader.testHighRateVeto();
+    @property
+    def has_udp_trailer(self):
+        return self.c_reader.hasUDPTrailer();
 
-	@property
-	def fifo_status(self):
-	   return self.c_reader.testFIFOStatus();
+    @property
+    def white_rabbit_status(self):
+        return self.c_reader.testWhiteRabbitStatus();
+
+    @property
+    def high_rate_veto(self):
+        return self.c_reader.testHighRateVeto();
+
+    @property
+    def fifo_status(self):
+        return self.c_reader.testFIFOStatus();
 
     @property
     def number_of_hits(self):

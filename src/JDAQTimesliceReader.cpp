@@ -45,31 +45,39 @@ namespace jppy {
         return superframe_it->size();
     }
 
-    int JDAQSummarysliceReader::getModuleID() {
+    int JDAQTimesliceReader::getModuleID() {
         return superframe_it->getModuleID();
     }
 
-    int JDAQSummarysliceReader::getUDPNumberOfReceivedPackets() {
+    int JDAQTimesliceReader::getUTCSeconds() {
+        return superframe_it->getTimesliceStart().getUTCseconds();
+    }
+
+    int JDAQTimesliceReader::getUTCNanoseconds() {
+        return superframe_it->getTimesliceStart().getUTC16nanosecondcycles() * 16;
+    }
+
+    int JDAQTimesliceReader::getUDPNumberOfReceivedPackets() {
         return superframe_it->getUDPNumberOfReceivedPackets();
     }
 
-    int JDAQSummarysliceReader::getUDPMaximalSequenceNumber() {
+    int JDAQTimesliceReader::getUDPMaximalSequenceNumber() {
         return superframe_it->getUDPMaximalSequenceNumber();
     }
 
-    bool JDAQSummarysliceReader::hasUDPTrailer() {
+    bool JDAQTimesliceReader::hasUDPTrailer() {
         return superframe_it->hasUDPTrailer();
     }
 
-    bool JDAQSummarysliceReader::testWhiteRabbitStatus() {
+    bool JDAQTimesliceReader::testWhiteRabbitStatus() {
         return superframe_it->testWhiteRabbitStatus();
     }
 
-    bool JDAQSummarysliceReader::testHighRateVeto() {
+    bool JDAQTimesliceReader::testHighRateVeto() {
         return superframe_it->testHighRateVeto();
     }
 
-    bool JDAQSummarysliceReader::testFIFOStatus() {
+    bool JDAQTimesliceReader::testFIFOStatus() {
         return superframe_it->testFIFOStatus();
     }
 

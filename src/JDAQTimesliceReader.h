@@ -13,6 +13,8 @@ namespace jppy {
 
         // Frame
 	int getModuleID();
+	int getUTCSeconds();
+	int getUTCNanoseconds();
 	int getUDPNumberOfReceivedPackets();
 	int getUDPMaximalSequenceNumber();
 	bool hasUDPTrailer();
