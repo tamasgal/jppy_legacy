@@ -10,6 +10,15 @@ namespace jppy {
         void retrieveNextSuperframe();
         bool hasNext();
         bool hasNextSuperframe();
+
+        // Frame
+	int getModuleID();
+	int getUDPNumberOfReceivedPackets();
+	int getUDPMaximalSequenceNumber();
+	bool hasUDPTrailer();
+	bool testWhiteRabbitStatus();
+	bool testHighRateVeto();
+	bool testFIFOStatus();
         int getNumberOfHits();
         void getHits(int* channel_ids, int* dom_ids, int* times, int* tots);
     };
