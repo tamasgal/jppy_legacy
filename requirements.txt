@@ -1,2 +1,4 @@
+pip>=9.0.1 
+setuptools>=24.3
 Cython
 numpy
