@@ -29,7 +29,7 @@ git flow release finish "${VERSION}"
 #python setup.py sdist register upload
 rm -rf dist/*
 python setup.py sdist
-twine uploadt dist/*
+twine upload dist/*
 
 git checkout master
 git push
