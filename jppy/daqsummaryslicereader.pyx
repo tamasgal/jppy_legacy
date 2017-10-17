@@ -102,5 +102,5 @@ cdef class PyJDAQSummarysliceReader:
     def fifo_status(self):
         return self.c_reader.testFIFOStatus();
 
-    def get_rates(self, np.ndarray[float, ndim=1, mode="c"] rates not None):
+    def get_rates(self, np.ndarray['f4', ndim=1, mode="c"] rates not None):
         self.c_reader.getRates(&rates[0])
