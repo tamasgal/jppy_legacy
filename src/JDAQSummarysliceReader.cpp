@@ -94,7 +94,7 @@ namespace jppy {
         return frame_it->testFIFOStatus();
     }
 
-    void JDAQSummarysliceReader::getRates(float* rates) {
+    void JDAQSummarysliceReader::getRates(double* rates) {
         for (int channel_id = 0; channel_id != 31; ++channel_id) {
             std::cout << "Channel " << channel_id << " rate: ";
             std::cout << frame_it->getRate(channel_id) << std::endl;
