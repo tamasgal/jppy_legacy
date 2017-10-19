@@ -12,7 +12,7 @@ SVN="http://svn.km3net.de/dataformats/jppy"
 #export JPP_DIR=dummy
 #export JPP_LIB=dummy
 
-git co master 
+git checkout master 
 git pull
 
 git checkout develop
