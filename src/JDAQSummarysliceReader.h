@@ -28,6 +28,7 @@ namespace jppy {
         int getModuleID();
         int getUDPNumberOfReceivedPackets();
         int getUDPMaximalSequenceNumber();
+        void getRates(double* rates);
     };
 
 }

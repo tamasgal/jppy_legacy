@@ -34,6 +34,7 @@ cdef extern from "JDAQSummarysliceReader.h" namespace "jppy":
         bool testWhiteRabbitStatus();
         bool testHighRateVeto();
         bool testFIFOStatus();
+        void getRates(double* rates)
 
 cdef class PyJDAQSummarysliceReader:
     cdef JDAQSummarysliceReader c_reader
@@ -100,3 +101,6 @@ cdef class PyJDAQSummarysliceReader:
     @property
     def fifo_status(self):
         return self.c_reader.testFIFOStatus();
+
+    def get_rates(self, np.ndarray[double, ndim=1, mode="c"] rates not None):
+        self.c_reader.getRates(&rates[0])

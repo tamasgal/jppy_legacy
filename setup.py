@@ -23,12 +23,15 @@ except KeyError:
     raise SystemExit("\n$JPP_DIR is not set. "
                      "You need to activate the JPP environment!")
 
-ROOT_INC = sp.Popen(["root-config", "--incdir"],
-                    stdout=sp.PIPE).communicate()[0].strip().decode()
-ROOT_LIB = sp.Popen(["root-config", "--libdir"],
-                    stdout=sp.PIPE).communicate()[0].strip().decode()
-JPP_INC = os.environ['JPP_DIR'] + "/software"
-JPP_LIB = os.environ['JPP_LIB']
+try:
+    ROOT_INC = sp.Popen(["root-config", "--incdir"],
+                        stdout=sp.PIPE).communicate()[0].strip().decode()
+    ROOT_LIB = sp.Popen(["root-config", "--libdir"],
+                        stdout=sp.PIPE).communicate()[0].strip().decode()
+    JPP_INC = os.environ['JPP_DIR'] + "/software"
+    JPP_LIB = os.environ['JPP_LIB']
+except OSError:
+    raise ImportError("Cannot detect JPP!")
 
 
 extensions = [
@@ -45,7 +48,7 @@ extensions = [
 ]
 
 setup(name='jppy',
-      version='1.3.1',
+      version='1.3.2',
       url='http://git.km3net.de/tgal/jppy.git',
       description='Python bindings for JPP',
       author='Tamas Gal',
