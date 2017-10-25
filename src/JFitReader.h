@@ -1,29 +1,29 @@
-#ifndef JDAQEVENTREADER_H
-#define JDAQEVENTREADER_H
+#ifndef JFITREADER_H
+#define JFITREADER_H
 
 namespace jppy {
-    class JDAQEventReader {
+    class JFitReader {
     public:
-        JDAQEventReader();
-        JDAQEventReader(char* filename);
+        JFitReader();
+        JFitReader(char* filename);
         void retrieveNextEvent();
-        int getFrameIndex();
-        int getRunNumber();
-        int getDetectorID();
-        int getTriggerCounter();
-        int getTriggerMask();
-        int getSize();
-        unsigned int getOverlays();
-        int getUTCSeconds();
-        int getUTCNanoseconds();
-        int getNumberOfSnapshotHits();
-        void getHits(int* channel_ids, int* dom_ids, int* times, int* tots,
+        double getX();
+        double getY();
+        double getZ();
+        double getDX();
+        double getDY();
+        double getDZ();
+        int getNDF();
+        double getT();
+        double getQ();
+        double getE();
+        void getFits(int* channel_ids, int* dom_ids, int* times, int* tots,
                      int* triggereds);
+        void getFits(double* pos_xs, double* pos_ys, double* pos_zs,
+            double* dir_xs, double* dir_ys, double* dir_zs,
+            int* ndfs, double* times, double* qualities, double* energies);
         bool hasNext();
-//  private:
-//      JSUPPORT::JFileScanner<KM3NETDAQ::JDAQEvent> file_scanner;
-//      KM3NETDAQ::JDAQEvent* event;
     };
 }
 
-#endif /* JDAQEVENTREADER_H */
+#endif /* JFITREADER_H */

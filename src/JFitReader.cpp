@@ -2,59 +2,55 @@
 /*
 #include <iostream>
 #include <map>
-#include "JDAQEventReader.h"
-#include "JDAQ/JDAQEvent.hh"
+#include "JFitReader.h"
+#include "JDAQ/JEvt.hh"
 #include "JSupport/JMultipleFileScanner.hh"
 */
 
 
 namespace jppy {
 
-    JSUPPORT::JFileScanner<KM3NETDAQ::JDAQEvent> fileScanner;
-    KM3NETDAQ::JDAQEvent* event;
+    JSUPPORT::JFileScanner<JFIT::JEvt> fileScanner;
+    JFIT::JEvt* event;
 
-    JDAQEventReader::JDAQEventReader() {}
+    JFitReader::JFitReader() {}
 
-    JDAQEventReader::JDAQEventReader(char* filename) {
+    JFitReader::JFitReader(char* filename) {
         std::cout << "Filename in c++: " << filename << std::endl;
         fileScanner.open(filename);
     }
 
-    void JDAQEventReader::retrieveNextEvent() { event = fileScanner.next(); }
+    void JFitReader::retrieveNextEvent() { event = fileScanner.next(); }
+    bool JFitReader::hasNext() { return fileScanner.hasNext(); }
 
-    int JDAQEventReader::getFrameIndex() { return event->getFrameIndex(); }
-    int JDAQEventReader::getRunNumber() { return event->getRunNumber(); }
-    int JDAQEventReader::getDetectorID() { return event->getDetectorID(); }
-    int JDAQEventReader::getTriggerCounter() { return event->getCounter(); }
-    int JDAQEventReader::getTriggerMask() { return event->getTriggerMask(); }
-    int JDAQEventReader::getSize() { return event->getSize(); }
-    unsigned int JDAQEventReader::getOverlays() { return event->getOverlays(); }
-    int JDAQEventReader::getUTCSeconds() {
-        return event->getTimesliceStart().getUTCseconds();
-    }
-    int JDAQEventReader::getUTCNanoseconds() {
-        return event->getTimesliceStart().getUTC16nanosecondcycles() * 16;
-    }
+    int JFitReader::getFrameIndex() { return event->getFrameIndex(); }
+    double JFitReader::getX() { return event->getX(); }
+    double JFitReader::getY() { return event->getY(); }
+    double JFitReader::getZ() { return event->getZ(); }
+    double JFitReader::getDX() { return event->getDX(); }
+    double JFitReader::getDY() { return event->getDY(); }
+    double JFitReader::getDZ() { return event->getDZ(); }
+    int JFitReader::getNDF() { return event->getNDF(); }
+    double JFitReader::getT() { return event->getT(); }
+    double JFitReader::getQ() { return event->getQ(); }
+    double JFitReader::getE() { return event->getE(); }
 
-    bool JDAQEventReader::hasNext() { return fileScanner.hasNext(); }
-
-    int JDAQEventReader::getNumberOfSnapshotHits()
-    {
-        std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits
-            = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
-        return snapshotHits.size();
-    }
-
-    void JDAQEventReader::getHits(int* channel_ids,
-                                  int* dom_ids,
-                                  int* times,
-                                  int* tots,
-                                  int* triggereds)
-    {
+    void JFitReader::getFits(
+        double* pos_xs,
+        double* pos_ys,
+        double* pos_zs,
+        double* dir_xs,
+        double* dir_ys,
+        double* dir_zs,
+        int* ndfs,
+        double* times,
+        double* qualities,
+        double* energies,
+                                  ){
         std::map <int, std::map <int, std::map <int, int> > >  triggered_map;
 
-        std::vector<KM3NETDAQ::JDAQTriggeredHit> triggeredHits
-            = event->getHits<KM3NETDAQ::JDAQTriggeredHit>();
+        std::vector<JFIT::JDAQTriggeredHit> triggeredHits
+            = event->getHits<JFIT::JDAQTriggeredHit>();
 
         int nTriggeredHits = triggeredHits.size();
 
@@ -65,8 +61,8 @@ namespace jppy {
             triggered_map[channel_id][dom_id][time] = 1;
         }
 
-        std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits
-            = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
+        std::vector<JFIT::JDAQSnapshotHit> snapshotHits
+            = event->getHits<JFIT::JDAQSnapshotHit>();
 
         int nSnapshotHits = snapshotHits.size();
 

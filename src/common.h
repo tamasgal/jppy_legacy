@@ -10,6 +10,8 @@
 #include "JDAQSummarysliceReader.h"
 #include "JSupport/JMultipleFileScanner.hh"
 #include "JSupport/JTreeScanner.hh"
-
+#include "JFit/JEvt.hh"
+#include "JFit/JEvtToolkit.hh"
+#include "JFit/JFitParameters.hh"
 
 #endif /* JPPYCOMMONHEADER_H */
