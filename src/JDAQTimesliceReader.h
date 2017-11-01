@@ -24,7 +24,8 @@ namespace jppy {
 	bool testHighRateVeto();
 	bool testFIFOStatus();
         int getNumberOfHits();
-        void getHits(int* channel_ids, int* dom_ids, int* times, int* tots);
+        void getHits(int* channel_ids, int* dom_ids, int* times, int* tots,
+                     int start_index);
     };
 }
 
