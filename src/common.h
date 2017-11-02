@@ -1,5 +1,5 @@
-#ifndef JPPYCOMMONHEADER_H
-#define JPPYCOMMONHEADER_H
+#ifndef SRC_COMMON_H_
+#define SRC_COMMON_H_
 
 #include <iomanip>
 #include <iostream>
@@ -14,4 +14,4 @@
 #include "JFit/JEvtToolkit.hh"
 #include "JFit/JFitParameters.hh"
 
-#endif /* JPPYCOMMONHEADER_H */
+#endif  // SRC_COMMON_H_
