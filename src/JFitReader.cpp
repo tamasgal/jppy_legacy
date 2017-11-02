@@ -1,12 +1,4 @@
 #include "common.h"
-/*
-#include <iostream>
-#include <map>
-#include "JFitReader.h"
-#include "JDAQ/JEvt.hh"
-#include "JSupport/JMultipleFileScanner.hh"
-*/
-
 
 namespace jppy {
 
@@ -29,19 +21,22 @@ void JFitReader::getFits(double* pos_xs, double* pos_ys, double* pos_zs,
   double* dir_xs, double* dir_ys, double* dir_zs,
   int* ndfs, double* times, double* qualities, double* energies
 ) {
-    int nFits = event->size();
-
-    for (int i = 0; i < nFits; i++) {
-        double pos_x = static_cast<double>(nFits[i].getX());
-        double pos_y = static_cast<double>(nFits[i].getY());
-        double pos_z = static_cast<double>(nFits[i].getZ());
-        double dir_x = static_cast<double>(nFits[i].getDX());
-        double dir_y = static_cast<double>(nFits[i].getDY());
-        double dir_z = static_cast<double>(nFits[i].getDZ());
-        int ndf = static_cast<int>(nFits[i].getNDF());
-        double time = static_cast<double>(nFits[i].getT());
-        double quality = static_cast<double>(nFits[i].getQ());
-        double energy = static_cast<double>(nFits[i].getE());
+    //int nFits = event->size();
+    //for (int i = 0; i < nFits; i++) {
+    JFIT::JEvt::iterator __end = event->end();
+    JFIT::JEvt::iterator __begin = event->begin();
+    for (JFIT::JEvt::iterator track = event->begin(); track != __end; ++track) {
+        int i = std::distance(__begin, track);
+        double pos_x = static_cast<double>(track->getX());
+        double pos_y = static_cast<double>(track->getY());
+        double pos_z = static_cast<double>(track->getZ());
+        double dir_x = static_cast<double>(track->getDX());
+        double dir_y = static_cast<double>(track->getDY());
+        double dir_z = static_cast<double>(track->getDZ());
+        int ndf = static_cast<int>(track->getNDF());
+        double time = static_cast<double>(track->getT());
+        double quality = static_cast<double>(track->getQ());
+        double energy = static_cast<double>(track->getE());
         pos_xs[i] = pos_x;
         pos_ys[i] = pos_y;
         pos_zs[i] = pos_z;
