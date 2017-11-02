@@ -1,4 +1,4 @@
-# distutils: language = c++
+# distutils: language=c++
 # distutils: sources = src/JFitReader.cpp
 # vim:set ts=4 sts=4 sw=4 et:
 from libcpp cimport bool
@@ -44,7 +44,7 @@ cdef extern from "JFitReader.h" namespace "jppy":
             int* ndfs,
             double* times,
             double* qualities,
-            double* energies);
+            double* energies
         )
 
 
