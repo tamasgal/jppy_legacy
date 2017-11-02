@@ -29,7 +29,7 @@ void JFitReader::getFits(double* pos_xs, double* pos_ys, double* pos_zs,
   double* dir_xs, double* dir_ys, double* dir_zs,
   int* ndfs, double* times, double* qualities, double* energies
 ) {
-    int nFits = event.size();
+    int nFits = event->size();
 
     for (int i = 0; i < nFits; i++) {
         double pos_x = static_cast<double>(nFits[i].getX());

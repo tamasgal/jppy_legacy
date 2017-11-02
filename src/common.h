@@ -5,6 +5,7 @@
 #include <iostream>
 #include <map>
 #include "JDAQEventReader.h"
+#include "JFitReader.h"
 #include "JDAQ/JDAQEvent.hh"
 #include "JDAQ/JDAQSummaryslice.hh"
 #include "JDAQSummarysliceReader.h"
