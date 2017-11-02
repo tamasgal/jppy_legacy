@@ -23,7 +23,7 @@ namespace jppy {
     void JFitReader::retrieveNextEvent() { event = fileScanner.next(); }
     bool JFitReader::hasNext() { return fileScanner.hasNext(); }
 
-    double JFitReader::getNFits() { return event->size(); }
+    int JFitReader::getNFits() { return event->size(); }
 
     void JFitReader::getFits(
         double* pos_xs,
@@ -35,8 +35,7 @@ namespace jppy {
         int* ndfs,
         double* times,
         double* qualities,
-        double* energies,
-        ){
+        double* energies){
 
         int nFits = event.size();
 
@@ -57,6 +56,7 @@ namespace jppy {
             dir_xs[i] = dir_x;
             dir_ys[i] = dir_y;
             dir_zs[i] = dir_z;
+            ndfs[i] = ndf;
             times[i] = time;
             qualities[i] = quality;
             energies[i] = energy;

@@ -77,5 +77,15 @@ cdef class PyJFitReader:
                  np.ndarray[double, ndim=1, mode="c"] qualities not None,
                  np.ndarray[double, ndim=1, mode="c"] energies not None,
                  ):
-        self.c_reader.getFits(&channel_ids[0], &dom_ids[0], &times[0], &tots[0],
-                              &triggereds[0])
+        self.c_reader.getFits(
+                &pos_xs[0],
+                &pos_ys[0],
+                &pos_zs[0],
+                &dir_xs[0],
+                &dir_ys[0],
+                &dir_zs[0],
+                &ndfs[0],
+                &times[0],
+                &qualities[0],
+                &energies[0],
+                )
