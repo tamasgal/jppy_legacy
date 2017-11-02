@@ -91,8 +91,9 @@ namespace jppy {
     void JDAQTimesliceReader::getHits(int* channel_ids,
                                       int* dom_ids,
                                       int* times,
-                                      int* tots) {
-        int i = 0;
+                                      int* tots,
+                                      int start_index) {
+        int i = start_index;
         for( JDAQSuperFrame::const_iterator hit=superframe_it->begin();
              hit!=superframe_it->end();
              ++hit ) {
