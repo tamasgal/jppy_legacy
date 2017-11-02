@@ -1,9 +1,10 @@
-#ifndef SRC_COMMON_H_
-#define SRC_COMMON_H_
+#ifndef PKG_JPPY_SRC_COMMON_H_
+#define PKG_JPPY_SRC_COMMON_H_
 
 #include <iomanip>
 #include <iostream>
 #include <map>
+#include <vector>
 #include "JDAQEventReader.h"
 #include "JFitReader.h"
 #include "JDAQ/JDAQEvent.hh"
@@ -14,5 +15,8 @@
 #include "JFit/JEvt.hh"
 #include "JFit/JEvtToolkit.hh"
 #include "JFit/JFitParameters.hh"
+#include "JMC/JMCEvt.hh"
+#include "JMC/JMCHead.hh"
+#include "JMC/JMCToolkit.hh"
 
-#endif  // SRC_COMMON_H_
+#endif  // PKG_JPPY_SRC_COMMON_H_

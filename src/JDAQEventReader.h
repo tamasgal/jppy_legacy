@@ -1,8 +1,8 @@
-#ifndef JDAQEVENTREADER_H
-#define JDAQEVENTREADER_H
+#ifndef PKG_JPPY_SRY_JDAQEVENTREADER_H_
+#define PKG_JPPY_SRY_JDAQEVENTREADER_H_
 
 namespace jppy {
-    class JDAQEventReader {
+class JDAQEventReader {
     public:
         JDAQEventReader();
         JDAQEventReader(char* filename);
@@ -20,10 +20,10 @@ namespace jppy {
         void getHits(int* channel_ids, int* dom_ids, int* times, int* tots,
                      int* triggereds);
         bool hasNext();
-//  private:
-//      JSUPPORT::JFileScanner<KM3NETDAQ::JDAQEvent> file_scanner;
-//      KM3NETDAQ::JDAQEvent* event;
-    };
-}
+    // private:
+    //     JSUPPORT::JFileScanner<KM3NETDAQ::JDAQEvent> file_scanner;
+    //     KM3NETDAQ::JDAQEvent* event;
+};
+}   // namespace jppy
 
-#endif /* JDAQEVENTREADER_H */
+#endif  // PKG_JPPY_SRY_JDAQEVENTREADER_H_

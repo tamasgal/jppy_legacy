@@ -1,5 +1,5 @@
-#ifndef SRC_JFITREADER_H_
-#define SRC_JFITREADER_H_
+#ifndef PKG_JPPY_SRC_JFITREADER_H_
+#define PKG_JPPY_SRC_JFITREADER_H_
 
 namespace jppy {
 class JFitReader {
@@ -23,4 +23,4 @@ class JFitReader {
 };
 }  // namespace jppy
 
-#endif  // SRC_JFITREADER_H_
+#endif  // PKG_JPPY_SRC_JFITREADER_H_

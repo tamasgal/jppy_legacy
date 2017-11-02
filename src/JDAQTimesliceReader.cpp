@@ -5,8 +5,8 @@
 #include "JDAQ/JDAQTimeslice.hh"
 #include "JDAQTimesliceReader.h"
 
-using namespace KM3NETDAQ ; // for JDAQTimeSlice
-using namespace JSUPPORT;   // for JFileScanner
+using namespace KM3NETDAQ ;     // for JDAQTimeSlice
+using namespace JSUPPORT;       // for JFileScanner
 using namespace JLANG;
 
 namespace jppy {
@@ -29,11 +29,11 @@ namespace jppy {
         superframe_it = timeslice->begin();
         timeslice_idx += 1;
         superframe_idx = 0;
-        //std::cout << "Timeslice idx: " << superframe_idx << std::endl;
+        // std::cout << "Timeslice idx: " << superframe_idx << std::endl;
     }
     void JDAQTimesliceReader::retrieveNextSuperframe() {
         superframe_it++;
-        //std::cout << "Superframe idx: " << superframe_idx << std::endl;
+        // std::cout << "Superframe idx: " << superframe_idx << std::endl;
         superframe_idx += 1;
     }
     bool JDAQTimesliceReader::hasNext() { return fileScanner.hasNext(); }
@@ -44,7 +44,7 @@ namespace jppy {
         return timeslice->size();
     }
     int JDAQTimesliceReader::getNumberOfHits() {
-        //std::cout << superframe_it->getModuleID() << std::endl;
+        // std::cout << superframe_it->getModuleID() << std::endl;
         return superframe_it->size();
     }
 
@@ -94,14 +94,13 @@ namespace jppy {
                                       int* tots,
                                       int start_index) {
         int i = start_index;
-        for( JDAQSuperFrame::const_iterator hit=superframe_it->begin();
-             hit!=superframe_it->end();
-             ++hit ) {
-            channel_ids[i] = int(hit->getPMT());
+        for (JDAQSuperFrame::const_iterator hit = superframe_it->begin();
+             hit != superframe_it->end(); ++hit ) {
+            channel_ids[i] = static_cast<int>(hit->getPMT());
             dom_ids[i] = superframe_it->getModuleID();
-            //std::cout << superframe_it->getModuleID() << std::endl;
+            // std::cout << superframe_it->getModuleID() << std::endl;
             times[i] = hit->getT();
-            tots[i] = int(hit->getToT());
+            tots[i] = static_cast<int>(hit->getToT());
             i++;
         }
     }

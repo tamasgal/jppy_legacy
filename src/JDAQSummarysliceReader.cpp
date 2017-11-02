@@ -11,19 +11,19 @@ namespace jppy {
     JDAQSummarysliceReader::JDAQSummarysliceReader() {}
 
     JDAQSummarysliceReader::JDAQSummarysliceReader(char* filename) {
-        //std::cout << "Filename in c++: " << filename << std::endl;
+        // std::cout << "Filename in c++: " << filename << std::endl;
         fileScanner.open(filename);
     }
 
     bool JDAQSummarysliceReader::hasNext() { return fileScanner.hasNext(); }
 
     void JDAQSummarysliceReader::retrieveNextSummaryslice() {
-        if(!fileScanner.hasNext()) {
-            //std::cout << "No summary slices!" << std::endl;
+        if (!fileScanner.hasNext()) {
+            // std::cout << "No summary slices!" << std::endl;
             return;
         }
 
-        //std::cout << "New summary" << std::endl;
+        // std::cout << "New summary" << std::endl;
         summary = fileScanner->next();
         chronometer = dynamic_cast<const KM3NETDAQ::JDAQChronometer&> (*summary);
         frame_it = summary->begin();
@@ -116,4 +116,4 @@ namespace jppy {
     }
 
         */
-}
+}  // namespace jppy

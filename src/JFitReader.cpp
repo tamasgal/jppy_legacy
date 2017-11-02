@@ -21,8 +21,8 @@ void JFitReader::getFits(double* pos_xs, double* pos_ys, double* pos_zs,
   double* dir_xs, double* dir_ys, double* dir_zs,
   int* ndfs, double* times, double* qualities, double* energies
 ) {
-    //int nFits = event->size();
-    //for (int i = 0; i < nFits; i++) {
+    // int nFits = event->size();
+    // for (int i = 0; i < nFits; i++) {
     JFIT::JEvt::iterator __end = event->end();
     JFIT::JEvt::iterator __begin = event->begin();
     for (JFIT::JEvt::iterator track = event->begin(); track != __end; ++track) {
