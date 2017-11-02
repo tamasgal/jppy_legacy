@@ -1,5 +1,5 @@
-#ifndef PKG_JPPY_SRY_JDAQEVENTREADER_H_
-#define PKG_JPPY_SRY_JDAQEVENTREADER_H_
+#ifndef PKG_JPPY_SRC_JDAQEVENTREADER_H_
+#define PKG_JPPY_SRC_JDAQEVENTREADER_H_
 
 namespace jppy {
 class JDAQEventReader {
@@ -26,4 +26,4 @@ class JDAQEventReader {
 };
 }   // namespace jppy
 
-#endif  // PKG_JPPY_SRY_JDAQEVENTREADER_H_
+#endif  // PKG_JPPY_SRC_JDAQEVENTREADER_H_
