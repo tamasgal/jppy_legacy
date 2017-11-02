@@ -1,8 +1,8 @@
-#ifndef JDAQSUMMARYSLICEREADER_H
-#define JDAQSUMMARYSLICEREADER_H
+#ifndef PKG_JPPY_SRC_JDAQSUMMARYSLICEREADER_H_
+#define PKG_JPPY_SRC_JDAQSUMMARYSLICEREADER_H_
 
 namespace jppy {
-    class JDAQSummarysliceReader {
+class JDAQSummarysliceReader {
     public:
         JDAQSummarysliceReader();
         JDAQSummarysliceReader(char* filename);
@@ -16,7 +16,7 @@ namespace jppy {
         int getFrameIndex();
         int getUTCSeconds();
         int getUTCNanoseconds();
-        //int getTimesliceStart();
+        // int getTimesliceStart();
         bool hasUDPTrailer();
         bool testWhiteRabbitStatus();
         bool testHighRateVeto();
@@ -29,8 +29,7 @@ namespace jppy {
         int getUDPNumberOfReceivedPackets();
         int getUDPMaximalSequenceNumber();
         void getRates(double* rates);
-    };
-
+};
 }
 
-#endif /* JDAQSUMMARYSLICEREADER_H */
+#endif  // PKG_JPPY_SRC_JDAQSUMMARYSLICEREADER_H_

@@ -38,8 +38,7 @@ namespace jppy {
 
     bool JDAQEventReader::hasNext() { return fileScanner.hasNext(); }
 
-    int JDAQEventReader::getNumberOfSnapshotHits()
-    {
+    int JDAQEventReader::getNumberOfSnapshotHits() {
         std::vector<KM3NETDAQ::JDAQSnapshotHit> snapshotHits
             = event->getHits<KM3NETDAQ::JDAQSnapshotHit>();
         return snapshotHits.size();
@@ -49,8 +48,7 @@ namespace jppy {
                                   int* dom_ids,
                                   int* times,
                                   int* tots,
-                                  int* triggereds)
-    {
+                                  int* triggereds) {
         std::map <int, std::map <int, std::map <int, int> > >  triggered_map;
 
         std::vector<KM3NETDAQ::JDAQTriggeredHit> triggeredHits
@@ -59,9 +57,9 @@ namespace jppy {
         int nTriggeredHits = triggeredHits.size();
 
         for (int i = 0; i < nTriggeredHits; i++) {
-            int channel_id = (int)triggeredHits[i].getPMT();
-            int dom_id = (int)triggeredHits[i].getModuleID();
-            int time = (int)triggeredHits[i].getT();
+            int channel_id = static_cast<int>(triggeredHits[i].getPMT());
+            int dom_id = static_cast<int>(triggeredHits[i].getModuleID());
+            int time = static_cast<int>(triggeredHits[i].getT());
             triggered_map[channel_id][dom_id][time] = 1;
         }
 
@@ -71,10 +69,10 @@ namespace jppy {
         int nSnapshotHits = snapshotHits.size();
 
         for (int i = 0; i < nSnapshotHits; i++) {
-            int channel_id = (int)snapshotHits[i].getPMT();
-            int dom_id = (int)snapshotHits[i].getModuleID();
-            int time = (int)snapshotHits[i].getT();
-            int tot = (int)snapshotHits[i].getToT();
+            int channel_id = static_cast<int>(snapshotHits[i].getPMT());
+            int dom_id = static_cast<int>(snapshotHits[i].getModuleID());
+            int time = static_cast<int>(snapshotHits[i].getT());
+            int tot = static_cast<int>(snapshotHits[i].getToT());
             channel_ids[i] = channel_id;
             dom_ids[i] = dom_id;
             times[i] = time;
@@ -82,4 +80,4 @@ namespace jppy {
             triggereds[i] = triggered_map[channel_id][dom_id][time];
         }
     }
-}
+}   // namespace jppy
