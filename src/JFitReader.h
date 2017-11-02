@@ -2,7 +2,7 @@
 #define JFITREADER_H
 
 namespace jppy {
-    class JFitReader {
+class JFitReader {
     public:
         JFitReader();
         JFitReader(char* filename);
@@ -20,7 +20,7 @@ namespace jppy {
             double* qualities,
             double* energies);
         bool hasNext();
-    };
-}
+};
+}  // namespace jppy
 
-#endif /* JFITREADER_H */
+#endif // JFITREADER_H
