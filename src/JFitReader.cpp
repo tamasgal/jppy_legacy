@@ -23,17 +23,7 @@ namespace jppy {
     void JFitReader::retrieveNextEvent() { event = fileScanner.next(); }
     bool JFitReader::hasNext() { return fileScanner.hasNext(); }
 
-    int JFitReader::getFrameIndex() { return event->getFrameIndex(); }
-    double JFitReader::getX() { return event->getX(); }
-    double JFitReader::getY() { return event->getY(); }
-    double JFitReader::getZ() { return event->getZ(); }
-    double JFitReader::getDX() { return event->getDX(); }
-    double JFitReader::getDY() { return event->getDY(); }
-    double JFitReader::getDZ() { return event->getDZ(); }
-    int JFitReader::getNDF() { return event->getNDF(); }
-    double JFitReader::getT() { return event->getT(); }
-    double JFitReader::getQ() { return event->getQ(); }
-    double JFitReader::getE() { return event->getE(); }
+    double JFitReader::getNFits() { return event->size(); }
 
     void JFitReader::getFits(
         double* pos_xs,
@@ -46,36 +36,30 @@ namespace jppy {
         double* times,
         double* qualities,
         double* energies,
-                                  ){
-        std::map <int, std::map <int, std::map <int, int> > >  triggered_map;
+        ){
 
-        std::vector<JFIT::JDAQTriggeredHit> triggeredHits
-            = event->getHits<JFIT::JDAQTriggeredHit>();
+        int nFits = event.size();
 
-        int nTriggeredHits = triggeredHits.size();
-
-        for (int i = 0; i < nTriggeredHits; i++) {
-            int channel_id = (int)triggeredHits[i].getPMT();
-            int dom_id = (int)triggeredHits[i].getModuleID();
-            int time = (int)triggeredHits[i].getT();
-            triggered_map[channel_id][dom_id][time] = 1;
-        }
-
-        std::vector<JFIT::JDAQSnapshotHit> snapshotHits
-            = event->getHits<JFIT::JDAQSnapshotHit>();
-
-        int nSnapshotHits = snapshotHits.size();
-
-        for (int i = 0; i < nSnapshotHits; i++) {
-            int channel_id = (int)snapshotHits[i].getPMT();
-            int dom_id = (int)snapshotHits[i].getModuleID();
-            int time = (int)snapshotHits[i].getT();
-            int tot = (int)snapshotHits[i].getToT();
-            channel_ids[i] = channel_id;
-            dom_ids[i] = dom_id;
+        for (int i = 0; i < nFits; i++) {
+            double pos_x = (double)nFits[i].getX();
+            double pos_y = (double)nFits[i].getY();
+            double pos_z = (double)nFits[i].getZ();
+            double dir_x = (double)nFits[i].getDX();
+            double dir_y = (double)nFits[i].getDY();
+            double dir_z = (double)nFits[i].getDZ();
+            int ndf = (int)nFits[i].getNDF();
+            double time = (double)nFits[i].getT();
+            double quality = (double)nFits[i].getQ();
+            double energy = (double)nFits[i].getE();
+            pos_xs[i] = pos_x;
+            pos_ys[i] = pos_y;
+            pos_zs[i] = pos_z;
+            dir_xs[i] = dir_x;
+            dir_ys[i] = dir_y;
+            dir_zs[i] = dir_z;
             times[i] = time;
-            tots[i] = tot;
-            triggereds[i] = triggered_map[channel_id][dom_id][time];
+            qualities[i] = quality;
+            energies[i] = energy;
         }
     }
 }
