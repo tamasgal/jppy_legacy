@@ -2,26 +2,60 @@
 #include <vector>
 #include "common.h"
 #include "JLang/JObjectReader.hh"
+#include "JLang/JSinglePointer.hh"
 #include "JDAQ/JDAQTimeslice.hh"
+#include "JDAQ/JDAQEvaluator.hh"
+#include "JSupport/JTreeScanner.hh"
 #include "JDAQTimesliceReader.h"
 
 using namespace KM3NETDAQ ;     // for JDAQTimeSlice
-using namespace JSUPPORT;       // for JFileScanner
+using namespace JSUPPORT;       // for JFileScanner and JTreeScanner
 using namespace JLANG;
 
 namespace jppy {
 
     JSUPPORT::JFileScanner<KM3NETDAQ::JDAQTimeslice> fileScanner;
+    typedef JTreeScanner<JDAQTimeslice, JDAQEvaluator>  JTreeScanner_t;
+    JLANG::JSinglePointer< JTreeScanner_t > treeScanner;
+
+    std::string _filename;
     KM3NETDAQ::JDAQTimeslice* timeslice;
     JDAQTimeslice::const_iterator superframe_it;
     int timeslice_idx = 0;
     int superframe_idx = 0;
+    std::map<int, int> frame_index_map;
 
     JDAQTimesliceReader::JDAQTimesliceReader() {}
 
     JDAQTimesliceReader::JDAQTimesliceReader(char* filename) {
+        _filename = std::string(filename);
         std::cout << "Filename in c++: " << filename << std::endl;
         fileScanner.open(filename);
+    }
+
+    void JDAQTimesliceReader::initTreeScanner() {
+        std::cout << "Initialising JTreeScanner, this may take a few seconds." << std::endl;
+        treeScanner.reset(new JTreeScanner_t(_filename));
+        int n = treeScanner->GetEntries();
+        for(int i = 0; i < n; i++) {
+            JDAQTimeslice* timeslice = treeScanner->getEntry(i);
+            frame_index_map[timeslice->getFrameIndex()] = i;
+            // std::cout << i << " : " << timeslice->getFrameIndex() << std::endl;
+        }
+        std::cout << n << " timeslices indexed." << std::endl;
+    }
+
+    void JDAQTimesliceReader::retrieveTimeslice(int index) {
+        timeslice = treeScanner->getEntry(index);
+        superframe_it = timeslice->begin();
+    }
+
+    void JDAQTimesliceReader::retrieveTimesliceAtFrameIndex(int frame_index) {
+        // std::cout << "Retrieving timeslice with frame index " << frame_index;
+        int i = frame_index_map[frame_index];
+        // std::cout << " (at index " << i << ")" << std::endl;
+        timeslice = treeScanner->getEntry(i);
+        superframe_it = timeslice->begin();
     }
 
     void JDAQTimesliceReader::retrieveNextTimeslice() {

@@ -14,6 +14,9 @@ cdef extern from "JDAQTimesliceReader.h" namespace "jppy":
     cdef cppclass JDAQTimesliceReader:
         JDAQTimesliceReader() except +
         JDAQTimesliceReader(char* filename) except +
+        void initTreeScanner()
+        void retrieveTimeslice(int index)
+        void retrieveTimesliceAtFrameIndex(int frame_index)
         void retrieveNextTimeslice()
         void retrieveNextSuperframe()
         bool hasNext()
@@ -40,6 +43,15 @@ cdef class PyJDAQTimesliceReader:
     def __cinit__(self, char* filename):
         self.c_reader = JDAQTimesliceReader(filename)
         self.slices = self.slice_generator()
+
+    def init_tree_scanner(self):
+        self.c_reader.initTreeScanner()
+
+    def retrieve_timeslice(self, int index):
+        self.c_reader.retrieveTimeslice(index)
+
+    def retrieve_timeslice_at_frame_index(self, int frame_index):
+        self.c_reader.retrieveTimesliceAtFrameIndex(frame_index)
 
     def retrieve_next_timeslice(self):
         self.c_reader.retrieveNextTimeslice()

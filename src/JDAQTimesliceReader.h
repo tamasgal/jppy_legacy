@@ -6,6 +6,9 @@ class JDAQTimesliceReader {
     public:
         JDAQTimesliceReader();
         JDAQTimesliceReader(char* filename);
+        void initTreeScanner();
+        void retrieveTimeslice(int index);
+        void retrieveTimesliceAtFrameIndex(int frame_index);
         void retrieveNextTimeslice();
         void retrieveNextSuperframe();
         bool hasNext();
