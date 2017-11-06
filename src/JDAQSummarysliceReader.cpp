@@ -101,19 +101,20 @@ namespace jppy {
             rates[channel_id] = frame_it->getRate(channel_id);
         }
     }
+    void JDAQSummarysliceReader::getHRVs(bool* hrvs) {
         /*
-    void debug() {
         for (KM3NETDAQ::JDAQSummaryslice::const_iterator frame = summary.begin();
              frame != summary.end();
              ++frame) {
             std::cout << "White rabbit status: " << frame->testWhiteRabbitStatus() << std::endl;
                       << frame->getModuleID()
-                      << std::endl;
-            for (int i = 0; i < 31; i++) {
-                std::cout << "     HRV for PMT " << i << ": " << frame->testHighRateVeto(0) << std::endl;
-            }
+                      << std::endl; */
+        for (int channel_id = 0; channel_id != 31; ++channel_id) {
+            // std::cout << "Channel " << channel_id << " rate: ";
+            // std::cout << frame_it->getRate(channel_id) << std::endl;
+            // std::cout << "     HRV for PMT " << channel_id << ": " << frame_it->testHighRateVeto(channel_id) << std::endl;
+            hrvs[channel_id] = frame_it->testHighRateVeto(channel_id);
         }
     }
 
-        */
 }  // namespace jppy

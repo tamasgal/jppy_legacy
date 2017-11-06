@@ -29,6 +29,7 @@ class JDAQSummarysliceReader {
         int getUDPNumberOfReceivedPackets();
         int getUDPMaximalSequenceNumber();
         void getRates(double* rates);
+        void getHRVs(bool* hrvs);
 };
 }
 
