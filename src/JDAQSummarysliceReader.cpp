@@ -101,7 +101,7 @@ namespace jppy {
             rates[channel_id] = frame_it->getRate(channel_id);
         }
     }
-    void JDAQSummarysliceReader::getHRVs(bool* hrvs) {
+    void JDAQSummarysliceReader::getHRVs(int* hrvs) {
         /*
         for (KM3NETDAQ::JDAQSummaryslice::const_iterator frame = summary.begin();
              frame != summary.end();
@@ -113,7 +113,7 @@ namespace jppy {
             // std::cout << "Channel " << channel_id << " rate: ";
             // std::cout << frame_it->getRate(channel_id) << std::endl;
             // std::cout << "     HRV for PMT " << channel_id << ": " << frame_it->testHighRateVeto(channel_id) << std::endl;
-            hrvs[channel_id] = frame_it->testHighRateVeto(channel_id);
+            hrvs[channel_id] = int(frame_it->testHighRateVeto(channel_id));
         }
     }
 
