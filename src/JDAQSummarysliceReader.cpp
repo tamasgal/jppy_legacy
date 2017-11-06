@@ -110,11 +110,20 @@ namespace jppy {
                       << frame->getModuleID()
                       << std::endl; */
         for (int channel_id = 0; channel_id != 31; ++channel_id) {
-            // std::cout << "Channel " << channel_id << " rate: ";
-            // std::cout << frame_it->getRate(channel_id) << std::endl;
-            // std::cout << "     HRV for PMT " << channel_id << ": " << frame_it->testHighRateVeto(channel_id) << std::endl;
             hrvs[channel_id] = int(frame_it->testHighRateVeto(channel_id));
         }
     }
 
+    void JDAQSummarysliceReader::getFIFOs(int* fifos) {
+        /*
+        for (KM3NETDAQ::JDAQSummaryslice::const_iterator frame = summary.begin();
+             frame != summary.end();
+             ++frame) {
+            std::cout << "White rabbit status: " << frame->testWhiteRabbitStatus() << std::endl;
+                      << frame->getModuleID()
+                      << std::endl; */
+        for (int channel_id = 0; channel_id != 31; ++channel_id) {
+            fifos[channel_id] = int(frame_it->getFIFOStatus(channel_id));
+        }
+    }
 }  // namespace jppy

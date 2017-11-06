@@ -36,6 +36,7 @@ cdef extern from "JDAQSummarysliceReader.h" namespace "jppy":
         bool testFIFOStatus();
         void getRates(double* rates)
         void getHRVs(int* hrvs)
+        void getFIFOs(int* fifos)
 
 cdef class PyJDAQSummarysliceReader:
     cdef JDAQSummarysliceReader c_reader
@@ -108,3 +109,6 @@ cdef class PyJDAQSummarysliceReader:
 
     def get_hrvs(self, np.ndarray[int, ndim=1, mode="c"] hrvs not None):
         self.c_reader.getHRVs(&hrvs[0])
+
+    def get_fifos(self, np.ndarray[int, ndim=1, mode="c"] fifos not None):
+        self.c_reader.getFIFOs(&hrvs[0])

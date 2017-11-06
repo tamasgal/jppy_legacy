@@ -30,6 +30,7 @@ class JDAQSummarysliceReader {
         int getUDPMaximalSequenceNumber();
         void getRates(double* rates);
         void getHRVs(int* hrvs);
+        void getFIFOs(int* fifos);
 };
 }
 
