@@ -111,4 +111,4 @@ cdef class PyJDAQSummarysliceReader:
         self.c_reader.getHRVs(&hrvs[0])
 
     def get_fifos(self, np.ndarray[int, ndim=1, mode="c"] fifos not None):
-        self.c_reader.getFIFOs(&hrvs[0])
+        self.c_reader.getFIFOs(&fifos[0])
