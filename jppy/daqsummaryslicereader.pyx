@@ -58,7 +58,7 @@ cdef class PyJDAQSummarysliceReader:
     def has_next_frame(self): return self.c_reader.hasNextFrame()
 
     @property
-    def number_of_frames(self): return self.c_reader.getNumberOfFrames()
+    def n_frames(self): return self.c_reader.getNumberOfFrames()
 
     @property
     def run_number(self): return self.c_reader.getRunNumber()
